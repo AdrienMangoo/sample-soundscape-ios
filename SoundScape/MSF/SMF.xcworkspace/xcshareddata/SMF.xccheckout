@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>31DB8230-8FF9-45AA-B033-63820F521E7C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SMF</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BB62D53EE088483524B7B946C84BF013838B72AC</key>
+		<string>github.com:MultiScreenSDK/swift-msf-api.git</string>
+		<key>C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D</key>
+		<string>github.com:daltoniam/starscream.git</string>
+		<key>C873F8DD413277FFAB518AE12513593275C8455B</key>
+		<string>github.com:MultiScreenSDK/MultiScreenSDK-Swift-API.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SMF.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BB62D53EE088483524B7B946C84BF013838B72AC</key>
+		<string>..</string>
+		<key>C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D</key>
+		<string>../../MultiScreenSDK-Swift-APIdeps/starscream</string>
+		<key>C873F8DD413277FFAB518AE12513593275C8455B</key>
+		<string>../../MultiScreenSDK-Swift-API</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:MultiScreenSDK/swift-msf-api.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BB62D53EE088483524B7B946C84BF013838B72AC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C873F8DD413277FFAB518AE12513593275C8455B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MultiScreenSDK-Swift-API</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>starscream</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BB62D53EE088483524B7B946C84BF013838B72AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>swift-msf-api</string>
+		</dict>
+	</array>
+</dict>
+</plist>
