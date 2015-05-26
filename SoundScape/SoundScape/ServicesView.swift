@@ -109,7 +109,7 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
         /// Used to change the Cast icon, depending on whether a service is connected or not
         if (multiScreenManager.isConnected){
             title.text = "Connected to:"
-            icon.image = UIImage(named: "ic_connected_gray")
+            icon.image = UIImage(named: "ic_connected")
             serviceConnectedName.text =  multiScreenManager.currentService.name
             /// Used to change the header size
             if (services.count>0){
@@ -120,7 +120,7 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
             lineImage.backgroundColor = UIColor.whiteColor()
         } else {
             title.text = "Connect to:"
-            icon.image = UIImage(named: "ic_discovered_gray")
+            icon.image = UIImage(named: "ic_discovered")
             lineImage.backgroundColor = UIColor.blackColor()
             headerViewConstraint.constant = 41
         }
@@ -219,17 +219,10 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
     }
     
     deinit {
-        println("####### ServicesView deinit")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     /// Close the current View
     func closeView() {
-        //NSNotificationCenter.defaultCenter().removeObserver(self)
-        /*
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.servicesChangedObserverIdentifier, object: nil)
-        
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.serviceConnectedObserverIdentifier, object: nil)
-        */
         if (multiScreenManager.isConnected){
             multiScreenManager.stopSearching()
         }
@@ -252,6 +245,4 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
         alertView.alertViewStyle = .Default
         alertView.show()
     }
-    
-    
 }

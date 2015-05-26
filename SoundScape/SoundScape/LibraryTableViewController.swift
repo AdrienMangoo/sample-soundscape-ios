@@ -96,35 +96,28 @@ class LibraryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         var text: String = String("Added to Queue")
-        // setup HUD; https://github.com/jdg/MBProgressHUD
-        var hud2 = MBProgressHUD(view: self.view)
+
+        var hud = MBProgressHUD(view: self.view)
         let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
         let someFloat: Float = Float(cgFloat)
-        hud2.yOffset = someFloat
-        self.view.addSubview(hud2)
-        //hud2.center = self.view.center
-        hud2.labelText = text
-        hud2.show(true)
+        hud.yOffset = someFloat
+        self.view.addSubview(hud)
         
-        //var hud = MBProgressHUD.showHUDAddedTo(tableView, animated: true)
+        let toastMsg = (medias.objectAtIndex(indexPath.row) as! MediaItem).title! + String(" added to queue")
         
-        //hud.labelText = text
+        hud.labelText = toastMsg
+        hud.show(true)
+        hud.dimBackground = true
+        
         
         generateTrackId()
         
         self.multiScreenManager.sendAddTrack(medias.objectAtIndex(indexPath.row) as! MediaItem)
         
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), {
-            // Do something...
-            //NSNotificationCenter.defaultCenter().postNotificationName(multiscreenManager.refreshQueueObserverIdentifier, object: self)
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                // stop the hud
-                hud2.hide(true)
-                //hud2.removeFromSuperview()
-                //MBProgressHUD.hideAllHUDsForView(self.view, animated: true) // Or just call hud.hide(true)
-                });
-            });
+        dispatch_async(dispatch_get_main_queue(), {
+            // stop the hud
+            hud.hide(true, afterDelay: 1)
+        });
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
