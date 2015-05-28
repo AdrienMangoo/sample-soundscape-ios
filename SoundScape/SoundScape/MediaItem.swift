@@ -78,3 +78,31 @@ extension UIImage {
         return imageWithColor(color)
     }
 }
+
+/*
+extension UIDevice {
+    public var SSID: String {
+        get {
+            let interfaces = CNCopySupportedInterfaces()
+            if interfaces == nil {
+                return ""
+            }
+            
+            let interfacesArray = interfaces.takeRetainedValue() as [String]
+            if interfacesArray.count <= 0 {
+                return ""
+            }
+            
+            let interfaceName = interfacesArray[0] as String
+            let unsafeInterfaceData = CNCopyCurrentNetworkInfo(interfaceName)
+            if unsafeInterfaceData == nil {
+                return ""
+            }
+            
+            let interfaceData = unsafeInterfaceData.takeRetainedValue() as Dictionary!
+            
+            return interfaceData["SSID"] as String
+        }
+    }
+}
+*/

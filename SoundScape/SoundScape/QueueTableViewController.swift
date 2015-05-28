@@ -9,15 +9,19 @@
 import UIKit
 import Alamofire
 
-class QueueTableViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+class QueueTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate {
 
     var queueMedias = NSMutableOrderedSet()
+    
+    /// MultiScreenManager instance that manages the interaction with the services
+    var multiScreenManager = MultiScreenManager.sharedInstance
     
     var currentTrackId = String()
     var currentTrackState = String("unknown")
     
     var userColor = String()
     
+    var disconnectPopoverController: UIPopoverController? = nil
     /// UITableView to diplay the services
     @IBOutlet weak var queueTableView: UITableView!
     
@@ -39,7 +43,7 @@ class QueueTableViewController: BaseViewController,UITableViewDelegate,UITableVi
     
     @IBAction func castButtonPressed(sender: AnyObject) {
         
-        showCastMenuView()
+        showDisconnectPopover(sender)
     }
     
     @IBAction func addButonPressed(sender: AnyObject) {
@@ -76,6 +80,13 @@ class QueueTableViewController: BaseViewController,UITableViewDelegate,UITableVi
         
         // Add an observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addTrack:", name: multiScreenManager.addTrackObserverIdentifier, object: nil)
+        
+        if queueTableView.respondsToSelector("setSeparatorInset:") {
+            queueTableView.separatorInset = UIEdgeInsetsZero
+        }
+        if queueTableView.respondsToSelector("setLayoutMargins:") {
+            queueTableView.layoutMargins = UIEdgeInsetsZero
+        }
         
         self.queueTableView.allowsMultipleSelectionDuringEditing = false
         self.queueTableView.tableFooterView = UIView(frame: CGRectZero)
@@ -252,6 +263,7 @@ class QueueTableViewController: BaseViewController,UITableViewDelegate,UITableVi
     func setupView() {
         
         connectedDeviceLabel.text = multiScreenManager.currentService.name
+        connectedDeviceImageView.image = multiScreenManager.isSpeaker(multiScreenManager.app.service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
         self.userColor = chooseUserColor()
         let colorString = self.userColor
@@ -281,5 +293,48 @@ class QueueTableViewController: BaseViewController,UITableViewDelegate,UITableVi
             libraryVC.userColor = self.userColor
         }
     }
+    
+    func showDisconnectPopover(sender: AnyObject) {
+        /*
+        let disconnectVC = self.storyboard?.instantiateViewControllerWithIdentifier("DeviceDisconnectViewController") as? UIViewController
+        
+        disconnectPopoverController = UIPopoverController(contentViewController: disconnectVC!)
+        disconnectPopoverController?.popoverContentSize = CGSize(width: 100, height: 100)
+        disconnectPopoverController?.presentPopoverFromRect((sender as! UIButton).frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
+        */
+        
+        let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DeviceDisconnectViewController") as! DeviceDisconnectViewController
+        //popoverVC.modalPresentationStyle = .Popover
+        popoverVC.userColor = self.userColor
+        popoverVC.modalTransitionStyle = .CrossDissolve
+        popoverVC.view.backgroundColor = UIColor.clearColor()
+        
+        popoverVC.modalPresentationStyle = .OverCurrentContext
+        
+        let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        let beView: UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
+        beView.tag = 1
+        beView.frame = self.view.bounds;
+        beView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        
+        popoverVC.view.frame = self.view.bounds
+        
+        popoverVC.view.insertSubview(beView, atIndex: 0)
+        popoverVC.view.tag = 1
+        // Present it before configuring it
+        presentViewController(popoverVC, animated: true, completion: nil)
+        
+        
+        // Now the popoverPresentationController has been created
+        if let popoverController = popoverVC.popoverPresentationController {
+            //popoverController.sourceView = sender
+            //popoverController.sourceRect = sender.bounds
+            //popoverController.permittedArrowDirections = .Any
+            //popoverController.delegate = self
+        }
+        
+    }
+    
+    
     
 }

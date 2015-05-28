@@ -49,6 +49,13 @@ class LibraryTableViewController: UITableViewController {
             NSFontAttributeName : UIFont.systemFontOfSize(20)
         ]
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        if tableView.respondsToSelector("setSeparatorInset:") {
+            tableView.separatorInset = UIEdgeInsetsZero
+        }
+        if tableView.respondsToSelector("setLayoutMargins:") {
+            tableView.layoutMargins = UIEdgeInsetsZero
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,6 +89,15 @@ class LibraryTableViewController: UITableViewController {
         cell.titleLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).title
         cell.albumNameLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).name
         
+        // Set tableView separator style
+        tableView.separatorStyle  = UITableViewCellSeparatorStyle.SingleLine
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+        
         if let imageURLEncoded = imageURL!.URLEncodedString() {
             Alamofire.request(.GET, imageURLEncoded).response() {
                 (_, _, data, _) in
@@ -95,7 +111,7 @@ class LibraryTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var text: String = String("Added to Queue")
+        var text: String = String("added to playlist")
 
         var hud = MBProgressHUD(view: self.view)
         let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
@@ -103,7 +119,7 @@ class LibraryTableViewController: UITableViewController {
         hud.yOffset = someFloat
         self.view.addSubview(hud)
         
-        let toastMsg = (medias.objectAtIndex(indexPath.row) as! MediaItem).title! + String(" added to queue")
+        let toastMsg = (medias.objectAtIndex(indexPath.row) as! MediaItem).title! + String(" added to playlist")
         
         hud.labelText = toastMsg
         hud.show(true)

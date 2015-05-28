@@ -267,7 +267,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     func onConnect(client: ChannelClient?, error: NSError?) {
         if (error == nil) {
             stopSearching()
-            NSNotificationCenter.defaultCenter().postNotificationName(serviceConnectedObserverIdentifier, object: self)
+            //NSNotificationCenter.defaultCenter().postNotificationName(serviceConnectedObserverIdentifier, object: self)
             /// post a notification to the NSNotificationCenter
             postNotification()
         }
@@ -325,6 +325,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         
     }
     func isSpeaker(service: Service) -> Bool {
-        return service.type.endsWith(" speaker")
+        println("service info: Name - \(service.name) Type - \(service.type)")
+        return service.type.endsWith("Speaker")
     }
 }

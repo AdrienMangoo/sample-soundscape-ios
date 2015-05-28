@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD03D9DF1B154D650084D765 /* DeviceDisconnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */; };
+		CD03D9E81B16A3D70084D765 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */; };
+		CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD43E9811B1523A70076AC7E /* DevicesViewController.swift */; };
 		CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39711B02B5D700621465 /* AppDelegate.swift */; };
 		CD4C39771B02B5D700621465 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD4C39751B02B5D700621465 /* Main.storyboard */; };
 		CD4C39791B02B5D700621465 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD4C39781B02B5D700621465 /* Images.xcassets */; };
@@ -14,8 +17,6 @@
 		CD4C39881B02B5D700621465 /* SoundScapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39871B02B5D700621465 /* SoundScapeTests.swift */; };
 		CD4C39921B02B61D00621465 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39911B02B61D00621465 /* HomeViewController.swift */; };
 		CD4C399F1B02B6FA00621465 /* MultiScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C399C1B02B6FA00621465 /* MultiScreenManager.swift */; };
-		CD4C39A01B02B6FA00621465 /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C399D1B02B6FA00621465 /* ServicesView.swift */; };
-		CD4C39A11B02B6FA00621465 /* ServicesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4C399E1B02B6FA00621465 /* ServicesView.xib */; };
 		CD4C39AC1B02C38600621465 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39AB1B02C38600621465 /* QueueTableViewController.swift */; };
 		CD4C39AE1B02C49300621465 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39AD1B02C49300621465 /* MediaTableViewCell.swift */; };
 		CD4C39B21B02C73400621465 /* QueueMediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39B11B02C73400621465 /* QueueMediaTableViewCell.swift */; };
@@ -28,7 +29,6 @@
 		CD76AEAC1B0DC299006455F1 /* Information.html in Resources */ = {isa = PBXBuildFile; fileRef = CD76AEAB1B0DC299006455F1 /* Information.html */; };
 		CD9584061B0BF15C00F45CF7 /* MSF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB1ADA91B0BC39E00AB987A /* MSF.framework */; };
 		CD9584071B0BF15C00F45CF7 /* MSF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB1ADA91B0BC39E00AB987A /* MSF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CDAA2FB31B047558000057A9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAA2FB21B047558000057A9 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +113,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDisconnectViewController.swift; sourceTree = "<group>"; };
+		CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CD43E9811B1523A70076AC7E /* DevicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
 		CD4C396C1B02B5D700621465 /* SoundScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4C39701B02B5D700621465 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD4C39711B02B5D700621465 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,8 +127,6 @@
 		CD4C39871B02B5D700621465 /* SoundScapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundScapeTests.swift; sourceTree = "<group>"; };
 		CD4C39911B02B61D00621465 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CD4C399C1B02B6FA00621465 /* MultiScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiScreenManager.swift; sourceTree = "<group>"; };
-		CD4C399D1B02B6FA00621465 /* ServicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
-		CD4C399E1B02B6FA00621465 /* ServicesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServicesView.xib; sourceTree = "<group>"; };
 		CD4C39AB1B02C38600621465 /* QueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
 		CD4C39AD1B02C49300621465 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		CD4C39B11B02C73400621465 /* QueueMediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueMediaTableViewCell.swift; sourceTree = "<group>"; };
@@ -137,7 +138,6 @@
 		CD767AEF1B041AF400126EDC /* SoundScape-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SoundScape-Bridging-Header.h"; sourceTree = "<group>"; };
 		CD76AEA51B0DC062006455F1 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		CD76AEAB1B0DC299006455F1 /* Information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Information.html; sourceTree = "<group>"; };
-		CDAA2FB21B047558000057A9 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CDB1ADA31B0BC39E00AB987A /* MSF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MSF.xcodeproj; path = MSF/iOS/MSF/MSF.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD03D9E81B16A3D70084D765 /* SystemConfiguration.framework in Frameworks */,
 				CD4C39D81B03C8BE00621465 /* Alamofire.framework in Frameworks */,
 				CD9584061B0BF15C00F45CF7 /* MSF.framework in Frameworks */,
 			);
@@ -164,6 +165,7 @@
 		CD4C39631B02B5D700621465 = {
 			isa = PBXGroup;
 			children = (
+				CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */,
 				CDB1ADA31B0BC39E00AB987A /* MSF.xcodeproj */,
 				CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */,
 				CD4C396E1B02B5D700621465 /* SoundScape */,
@@ -187,8 +189,6 @@
 				CD767AE61B040B2700126EDC /* MBProgressHUD.h */,
 				CD767AE71B040B2700126EDC /* MBProgressHUD.m */,
 				CD4C399C1B02B6FA00621465 /* MultiScreenManager.swift */,
-				CD4C399D1B02B6FA00621465 /* ServicesView.swift */,
-				CD4C399E1B02B6FA00621465 /* ServicesView.xib */,
 				CD4C39711B02B5D700621465 /* AppDelegate.swift */,
 				CD4C39751B02B5D700621465 /* Main.storyboard */,
 				CD4C39781B02B5D700621465 /* Images.xcassets */,
@@ -201,9 +201,10 @@
 				CD4C39B31B02D94800621465 /* LibraryTableViewController.swift */,
 				CD4C39DC1B03CCD100621465 /* MediaItem.swift */,
 				CD767AEF1B041AF400126EDC /* SoundScape-Bridging-Header.h */,
-				CDAA2FB21B047558000057A9 /* BaseViewController.swift */,
 				CD76AEA51B0DC062006455F1 /* InformationViewController.swift */,
 				CD76AEAB1B0DC299006455F1 /* Information.html */,
+				CD43E9811B1523A70076AC7E /* DevicesViewController.swift */,
+				CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */,
 			);
 			path = SoundScape;
 			sourceTree = "<group>";
@@ -393,7 +394,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD76AEAC1B0DC299006455F1 /* Information.html in Resources */,
-				CD4C39A11B02B6FA00621465 /* ServicesView.xib in Resources */,
 				CD4C39771B02B5D700621465 /* Main.storyboard in Resources */,
 				CD4C397C1B02B5D700621465 /* LaunchScreen.xib in Resources */,
 				CD4C39791B02B5D700621465 /* Images.xcassets in Resources */,
@@ -414,11 +414,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD4C39A01B02B6FA00621465 /* ServicesView.swift in Sources */,
+				CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */,
 				CD4C399F1B02B6FA00621465 /* MultiScreenManager.swift in Sources */,
-				CDAA2FB31B047558000057A9 /* BaseViewController.swift in Sources */,
 				CD4C39DD1B03CCD100621465 /* MediaItem.swift in Sources */,
 				CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */,
+				CD03D9DF1B154D650084D765 /* DeviceDisconnectViewController.swift in Sources */,
 				CD4C39AC1B02C38600621465 /* QueueTableViewController.swift in Sources */,
 				CD4C39AE1B02C49300621465 /* MediaTableViewCell.swift in Sources */,
 				CD4C39B21B02C73400621465 /* QueueMediaTableViewCell.swift in Sources */,
@@ -568,6 +568,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoundScape/SoundScape-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -581,6 +582,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoundScape/SoundScape-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

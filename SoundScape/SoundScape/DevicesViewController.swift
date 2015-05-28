@@ -1,103 +1,63 @@
-/*
-
-Copyright (c) 2014 Samsung Electronics
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
+//
+//  DevicesViewController.swift
+//  SoundScape
+//
+//  Created by Prasath Thurgam on 5/26/15.
+//  Copyright (c) 2015 samsung. All rights reserved.
+//
 
 import UIKit
 import MSF
 
-/// ServicesView
-///
-/// This class is used to display a list of services/TVs in the same Network
-class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
-    
+class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+
     /// MultiScreenManager instance that manage the interaction with the services
     var multiScreenManager = MultiScreenManager.sharedInstance
-    
-    /// Identifier for UITableview cell
-    let servicesFoundTVCellID = "ServicesFoundTVCell"
-    
-    /// UITableView to diplay the services
-    @IBOutlet weak var tableView: UITableView!
     
     /// Temp array of services
     var services = [AnyObject]()
     
-    /// Header View Height Constraint
-    @IBOutlet weak var headerViewConstraint: NSLayoutConstraint!
-    /// Title of the header
-    @IBOutlet weak var title: UILabel!
-    /// Cast Icon
-    @IBOutlet weak var icon: UIImageView!
-    /// Current service connected name
-    @IBOutlet weak var serviceConnectedName: UILabel!
-    /// Disconnect button
-    @IBOutlet weak var disconnectButton: UIButton!
+    /// Identifier for UITableview cell
+    let devicesFoundCellID = "devicesFoundCell"
     
-    /// Used to display an activy indicator while connecting
-    @IBOutlet weak var connectingIndicator: UIActivityIndicatorView!
-    
-    @IBOutlet weak var lineImage: UIImageView!
-    
-    override func awakeFromNib(){
-        super.awakeFromNib()
-        
-        multiScreenManager.startSearching()
-        
-        // Add an observer to check for services status and manage the cast icon
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTableView", name: multiScreenManager.servicesChangedObserverIdentifier, object: nil)
-        
-        // Add an observer to check if a tv is connected
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "serviceConnected", name: multiScreenManager.serviceConnectedObserverIdentifier, object: nil)
-        
-        /// Adding border and color to disconnect button
-        disconnectButton.layer.cornerRadius = 0
-        disconnectButton.layer.borderWidth = 0.5
-        disconnectButton.layer.borderColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1).CGColor
-        
-        /// Configuring the tableView separator style
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: servicesFoundTVCellID)
-        if tableView.respondsToSelector("setSeparatorInset:") {
-            tableView.separatorInset = UIEdgeInsetsZero
-        }
-        if tableView.respondsToSelector("setLayoutMargins:") {
-            tableView.layoutMargins = UIEdgeInsetsZero
-        }
-        tableView.layoutIfNeeded()
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+    @IBOutlet weak var devicesTableView: UITableView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
         
         /// Table row height
-        self.tableView.rowHeight = 44
+        self.devicesTableView.rowHeight = 44
+        /// Configuring the tableView separator style
+        devicesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: devicesFoundCellID)
+        
+        
+        if devicesTableView.respondsToSelector("setSeparatorInset:") {
+            devicesTableView.separatorInset = UIEdgeInsetsZero
+        }
+        if devicesTableView.respondsToSelector("setLayoutMargins:") {
+            devicesTableView.layoutMargins = UIEdgeInsetsZero
+        }
+        
+        
+        devicesTableView.layoutIfNeeded()
+        devicesTableView.tableFooterView = UIView(frame: CGRectZero)
         
         /// Add a gesture recognizer to dismiss the current view on tap
         let tap = UITapGestureRecognizer()
         tap.delegate = self
         tap.addTarget(self, action: "closeView")
-        self.addGestureRecognizer(tap)
+        self.view.addGestureRecognizer(tap)
         
-        connectingIndicator.hidden = true
+        // Add an observer to check for services status and manage the cast icon
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTableView", name: multiScreenManager.servicesChangedObserverIdentifier, object: nil)
         
         refreshTableView()
-        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     /// Reload table view with services not connected
@@ -106,6 +66,7 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
         /// Populate Temp services array with services not connected
         services = multiScreenManager.servicesNotConnected()
         
+        /*
         /// Used to change the Cast icon, depending on whether a service is connected or not
         if (multiScreenManager.isConnected){
             title.text = "Connected to:"
@@ -124,26 +85,17 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
             lineImage.backgroundColor = UIColor.blackColor()
             headerViewConstraint.constant = 41
         }
-
-        
-        tableView.reloadData()
+        */
+        devicesTableView.layoutIfNeeded()
+        devicesTableView.reloadData()
     }
-    
-    
-    func serviceConnected(){
-        title.text = "Connected to:"
-        connectingIndicator.stopAnimating()
-        connectingIndicator.hidden = true
-        self.closeView()
-    }
-    
-    // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        println(services.count)
         return services.count;
     }
     
@@ -151,16 +103,19 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
         
         /// Setting the custom cell view
         var cell: UITableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier(servicesFoundTVCellID, forIndexPath: indexPath) as! UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier(devicesFoundCellID, forIndexPath: indexPath) as! UITableViewCell
+        
         
         // Set tableView separator style
         tableView.separatorStyle  = UITableViewCellSeparatorStyle.SingleLine
+        
         if cell.respondsToSelector("setSeparatorInset:") {
             cell.separatorInset = UIEdgeInsetsZero
         }
         if cell.respondsToSelector("setLayoutMargins:") {
             cell.layoutMargins = UIEdgeInsetsZero
         }
+        
         
         /// Adding color to the cell on click
         var selectedView = UIView(frame: cell.frame)
@@ -180,7 +135,7 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
         
         var image : UIImage = UIImage(named: "ic_tv")!
         println("The loaded image: \(image)")
-        cell.imageView!.image = multiScreenManager.isSpeaker(services[indexPath.row] as! Service) ? UIImage(named: "ic_tv")! : UIImage(named: "ic_tv")!
+        cell.imageView!.image = multiScreenManager.isSpeaker(services[indexPath.row] as! Service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
         cell.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
         
@@ -190,31 +145,63 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
-        connectingIndicator.hidden = false
-        connectingIndicator.startAnimating()
+        //connectingIndicator.hidden = false
+        //connectingIndicator.startAnimating()
         if (multiScreenManager.isConnected) {
             multiScreenManager.closeApplication({ (success: Bool!) -> Void in
                 //
             })
         }
-        title.text = "Connecting"
+        
+        var text: String = String("connecting to ")
+        
+        var hud = MBProgressHUD(view: self.view)
+        let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
+        let someFloat: Float = Float(cgFloat)
+        hud.yOffset = someFloat
+        self.view.addSubview(hud)
+        
+        let toastMsg =  String("connecting to ") + (services[indexPath.row] as! Service).name
+        
+        hud.labelText = toastMsg
+        hud.show(true)
+        hud.dimBackground = true
+        
+        //title.text = "Connecting"
         /// If cell is selected then connect and start the application
         multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { [unowned self](success: Bool!) -> Void in
+            hud.hide(true)
             if ((success) == false){
-               self.displayAlertWithTitle("", message: "Connection could not be established")
-               self.closeView()
+                self.displayAlertWithTitle("", message: "Connection could not be established")
+                self.closeView()
             } else {
                 //NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceSelectedObserverIdentifier, object: self)
+                
+                self.closeView()
+                NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceConnectedObserverIdentifier, object: self)
             }
-        })
+            })
     }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        
+        headerView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(1)
+        let label  = UILabel(frame: CGRect(x: 6, y: 0, width: headerView.bounds.size.width-12, height: 20))
+        label.textAlignment = NSTextAlignment.Center
+        label.text = "Connect to:"
+        headerView.addSubview(label)
+        return headerView
+    }
+    
+    
     
     /// Capture the event when the disconnectButton button is clicked
     /// this will close the current service connection
     @IBAction func  closeApplication(){
         multiScreenManager.closeApplication({ [unowned self](success: Bool!) -> Void in
             self.closeView()
-        })
+            })
         
     }
     
@@ -227,12 +214,14 @@ class ServicesView: UIView, UITableViewDelegate, UITableViewDataSource, UIGestur
             multiScreenManager.stopSearching()
         }
         
-        self.removeFromSuperview()
+        //self.removeFromSuperview()
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     /// UIGestureRecognizerDelegate used to disable the tap event if the tapped View is not the main View
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
+        println(touch.view.tag)
         if (touch.view.tag == 1){
             return true
         }

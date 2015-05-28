@@ -8,11 +8,14 @@
 
 import UIKit
 
-class HomeViewController: BaseViewController {
+
+class HomeViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
     
     var mainViewController: QueueTableViewController? = nil;
 
+    /// MultiScreenManager instance that manages the interaction with the services
+    var multiScreenManager = MultiScreenManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +32,10 @@ class HomeViewController: BaseViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "servicesChanged", name: multiScreenManager.servicesChangedObserverIdentifier, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissQueueVC", name: multiScreenManager.dismissQueueVCObserverIdentifier, object: nil)
-
         
+        btnAction.layer.cornerRadius = 5
+        btnAction.layer.borderWidth = 0.5
+        btnAction.layer.borderColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1).CGColor
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,7 +68,8 @@ class HomeViewController: BaseViewController {
     
     @IBAction func actionButtonPressed(sender: AnyObject) {
         if btnAction.titleLabel!.text == "Select" {
-            showCastMenuView()
+            //showCastMenuView()
+            showDevices()
         } else if btnAction.titleLabel!.text == "Connect" {
             if multiScreenManager.services.count >= 1 {
                 multiScreenManager.createApplication(multiScreenManager.services[0], completionHandler: { [unowned self](success: Bool!) -> Void in
@@ -73,10 +79,11 @@ class HomeViewController: BaseViewController {
                         alertView.show()
                     } else {
                         //NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceSelectedObserverIdentifier, object: self)
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceConnectedObserverIdentifier, object: self)
                     }
                     })
             }
-            
         } else if btnAction.titleLabel!.text == "Information" {
             let informationNavigationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("InformationNavigationController") as? UIViewController
             informationNavigationViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
@@ -167,7 +174,43 @@ class HomeViewController: BaseViewController {
     }
     
     func dismissQueueVC() {
+        /*
         mainViewController?.dismissViewControllerAnimated(true, completion: nil)
         mainViewController = nil
+*/
+        self.dismissViewControllerAnimated(true, completion: nil)
+        mainViewController = nil
+    }
+    
+    func showDevices() {
+        
+        let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DevicesViewController") as! UIViewController
+        //popoverVC.modalPresentationStyle = .Popover
+        
+        popoverVC.modalTransitionStyle = .CrossDissolve
+        popoverVC.view.backgroundColor = UIColor.clearColor()
+        
+        popoverVC.modalPresentationStyle = .OverCurrentContext
+        
+        let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let beView: UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
+        beView.tag = 1
+        beView.frame = self.view.bounds;
+        beView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        popoverVC.view.frame = self.view.bounds
+        popoverVC.view.insertSubview(beView, atIndex: 0)
+        popoverVC.view.tag = 1
+        // Present it before configuring it
+        presentViewController(popoverVC, animated: true, completion: nil)
+        
+        
+        // Now the popoverPresentationController has been created
+        if let popoverController = popoverVC.popoverPresentationController {
+            //popoverController.sourceView = sender
+            //popoverController.sourceRect = sender.bounds
+            //popoverController.permittedArrowDirections = .Any
+            //popoverController.delegate = self
+        }
+        
     }
 }
