@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SoundScape/HomeViewController.swift"
-            timestampString = "454545588.849723"
+            timestampString = "454630425.628241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "servicesChanged()"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SoundScape/HomeViewController.swift"
-            timestampString = "454545588.849723"
+            timestampString = "454630425.628241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "servicesChanged()"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "serviceConnected()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -234,12 +234,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SoundScape/HomeViewController.swift"
-            timestampString = "454545588.849723"
+            timestampString = "454630425.628241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "setupView()"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "servicesChanged()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

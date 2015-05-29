@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MSF
 
 class HomeViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
@@ -16,6 +16,10 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
     /// MultiScreenManager instance that manages the interaction with the services
     var multiScreenManager = MultiScreenManager.sharedInstance
+    
+    var ssid: String? = String()
+
+    var reachabilityForWifi = Reachability.reachabilityForLocalWiFi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,26 +37,33 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissQueueVC", name: multiScreenManager.dismissQueueVCObserverIdentifier, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
+        
         btnAction.layer.cornerRadius = 5
         btnAction.layer.borderWidth = 0.5
         btnAction.layer.borderColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1).CGColor
+        
+        ssid = SSIdInfo.currentWifiSSID()
+        reachabilityForWifi.startNotifier()
     }
     
     override func viewWillAppear(animated: Bool) {
         activitySearching.startAnimating()
+        searchingDevicesLabel.hidden = false
+        
         btnAction.hidden = true
         lblDevices.text = " "
         multiScreenManager.startSearching()
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector:  Selector("searchTimerFired"), userInfo: nil, repeats: false)
         
-        
-        
     }
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.serviceConnectedObserverIdentifier, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.servicesChangedObserverIdentifier, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.dismissQueueVCObserverIdentifier, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kReachabilityChangedNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,13 +77,30 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     @IBOutlet weak var btnAction: UIButton!
     
+    @IBOutlet weak var searchingDevicesLabel: UILabel!
     @IBAction func actionButtonPressed(sender: AnyObject) {
         if btnAction.titleLabel!.text == "Select" {
             //showCastMenuView()
             showDevices()
         } else if btnAction.titleLabel!.text == "Connect" {
             if multiScreenManager.services.count >= 1 {
+                
+                var text: String = String("connecting to ")
+                
+                var hud = MBProgressHUD(view: self.view)
+                let cgFloat: CGFloat = CGRectGetMinY(self.view.bounds);
+                let someFloat: Float = Float(cgFloat)
+                hud.yOffset = someFloat
+                self.view.addSubview(hud)
+                
+                let toastMsg =  String("connecting to ") + (multiScreenManager.services[0] as Service).name
+                
+                hud.labelText = toastMsg
+                hud.show(true)
+                hud.dimBackground = true
+                
                 multiScreenManager.createApplication(multiScreenManager.services[0], completionHandler: { [unowned self](success: Bool!) -> Void in
+                    hud.hide(true)
                     if ((success) == false){
                         var  alertView:UIAlertView = UIAlertView(title:"", message: "Connection could not be established", delegate: self, cancelButtonTitle: "OK")
                         alertView.alertViewStyle = .Default
@@ -89,6 +117,8 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             informationNavigationViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
             presentViewController(informationNavigationViewController!, animated: true, completion: nil)
    
+        } else if btnAction.titleLabel!.text == "Settings"{
+            UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!);
         }
     }
     func searchDevices() {
@@ -96,30 +126,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     
-    /*
-    /// Shows a list of available services
-    /// User can connect to a service
-    /// User can disconnect from a connected service
-    func showCastMenuView() {
-        
-        /// UIView that contains a list of available services
-        var viewArray = NSBundle.mainBundle().loadNibNamed("ServicesView", owner: self, options: nil)
-        servicesView = viewArray[0] as! ServicesView
-        servicesView.frame = UIScreen.mainScreen().bounds
-        
-        /// Adding UIVIew to superView
-        addUIViewToWindowSuperView(servicesView)
-
-        
-        /*
-        //performSegueWithIdentifier("showPlayList", sender: self)
-        
-        mainViewController = self.storyboard?.instantiateViewControllerWithIdentifier("QueueTableViewControllerID") as? UIViewController
-        mainViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        presentViewController(mainViewController!, animated: true, completion: nil)
-        */
-    }
-    */
+    
     func searchTimerFired() {
         setupView()
     }
@@ -158,18 +165,32 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     func setupView() {
         activitySearching.stopAnimating()
+        searchingDevicesLabel.hidden = true
+        ssid = SSIdInfo.currentWifiSSID()
+        var ssidDisplay: String = String()
         
-        if (multiScreenManager.services.count == 1 ) {
-            lblDevices.text = "Discovered \"\(multiScreenManager.services[0].name)\""
+        if ssid != nil {
+            ssidDisplay = ssid!
+        } else {
+            ssidDisplay = "your network"
+        }
+        
+        if self.reachabilityForWifi.currentReachabilityStatus().value != ReachableViaWiFi.value {
+            lblDevices.text = "WiFi is not connected"
+            btnAction.setTitle("Settings", forState: UIControlState.Normal)
+        } else if (multiScreenManager.services.count == 1 ) {
+            lblDevices.text = "Discovered \(multiScreenManager.services[0].name) on \"\(ssidDisplay)\""
             btnAction.setTitle("Connect", forState: UIControlState.Normal)
         } else if (multiScreenManager.services.count > 1 ) {
-            lblDevices.text = "Found \(multiScreenManager.services.count) devices "
+            lblDevices.text = "Found \(multiScreenManager.services.count) devices on \"\(ssidDisplay)\""
             btnAction.setTitle("Select", forState: UIControlState.Normal)
         } else {
-            lblDevices.text = "No devices discovered"
+            lblDevices.text = "No devices discovered on \"\(ssidDisplay)\""
             btnAction.setTitle("Information", forState: UIControlState.Normal)
             activitySearching.startAnimating()
+            searchingDevicesLabel.hidden = false
         }
+        
         btnAction.hidden = false
     }
     
@@ -211,6 +232,10 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             //popoverController.permittedArrowDirections = .Any
             //popoverController.delegate = self
         }
-        
+    }
+    
+    func reachabilityChanged(notification: NSNotification) {
+        self.reachabilityForWifi = notification.object as? Reachability
+        setupView()
     }
 }

@@ -1,15 +1,7 @@
 //
-//  SoundScape-Bridging-Header.h
-//  SoundScape
-//
-//  Created by Prasath Thurgam on 5/13/15.
-//  Copyright (c) 2015 samsung. All rights reserved.
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#ifndef SoundScape_SoundScape_Bridging_Header_h
-#define SoundScape_SoundScape_Bridging_Header_h
-
-
+#import "SSIdInfo.h"
 #import "MBProgressHUD.h"
-
-#endif
+#import "Reachability.h"

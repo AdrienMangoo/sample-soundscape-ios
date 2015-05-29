@@ -210,11 +210,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /// Close the current View
     func closeView() {
-        if (multiScreenManager.isConnected){
-            multiScreenManager.stopSearching()
-        }
-        
-        //self.removeFromSuperview()
         dismissViewControllerAnimated(true, completion: nil)
     }
     

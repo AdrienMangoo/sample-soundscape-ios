@@ -9,7 +9,7 @@
 import UIKit
 
 class InformationViewController: UIViewController {
-
+    
     @IBOutlet weak var informationWebView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,8 +17,19 @@ class InformationViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let localfilePath = NSBundle.mainBundle().URLForResource("Information", withExtension: "html");
-        let myRequest = NSURLRequest(URL: localfilePath!);
-        informationWebView.loadRequest(myRequest);
+        let html = NSString(contentsOfURL: localfilePath!, encoding: NSUTF8StringEncoding, error: nil)
+    
+        var ssid: String? = String(SSIdInfo.currentWifiSSID())
+        var ssidDisplay: String = String()
+        
+        if ssid != nil {
+            ssidDisplay = ssid!
+        } else {
+            ssidDisplay = "your network"
+        }
+        
+        let htmlString = html?.stringByReplacingOccurrencesOfString("%%SSID%%", withString: ssidDisplay) as String?
+        informationWebView.loadHTMLString(htmlString, baseURL: nil)
     }
 
     @IBAction func dismissInformationVC(sender: AnyObject) {

@@ -52,7 +52,11 @@ public typealias GetServiceCompletionHandler = (service: Service?, error: NSErro
 
     /// The name of the service (Living Room TV)
     public var name: String {
-        return discoveryRecord["name"] as! String
+        if let nameTemp = discoveryRecord["name"] as? String {
+            return nameTemp
+        } else {
+            return "Multiscreen Device"
+        }
     }
 
     /// The version of the service (x.x.x)
@@ -62,7 +66,7 @@ public typealias GetServiceCompletionHandler = (service: Service?, error: NSErro
 
     /// The type of the service (Samsung SmartTV)
     public var type: String {
-        return (discoveryRecord["device"] as! [String:AnyObject])["model"] as! String
+        return (discoveryRecord["device"] as! [String:AnyObject])["type"] as! String
     }
 
     /// The service description

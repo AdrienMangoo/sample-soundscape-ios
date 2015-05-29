@@ -60,7 +60,9 @@ class DeviceDisconnectViewController: UIViewController, UIGestureRecognizerDeleg
     
     @IBAction
     func disconnect() {
-        multiScreenManager.app.disconnect()
+        multiScreenManager.closeApplication({ (success: Bool!) -> Void in
+            //
+        })
         //self.dismissViewControllerAnimated(true) { }
         
     }
