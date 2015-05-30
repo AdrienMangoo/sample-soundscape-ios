@@ -49,7 +49,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     override func viewWillAppear(animated: Bool) {
         activitySearching.startAnimating()
-        searchingDevicesLabel.hidden = false
         
         btnAction.hidden = true
         lblDevices.text = " "
@@ -77,7 +76,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     @IBOutlet weak var btnAction: UIButton!
     
-    @IBOutlet weak var searchingDevicesLabel: UILabel!
     @IBAction func actionButtonPressed(sender: AnyObject) {
         if btnAction.titleLabel!.text == "Select" {
             //showCastMenuView()
@@ -121,13 +119,9 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!);
         }
     }
-    func searchDevices() {
-        
-    }
-    
-    
     
     func searchTimerFired() {
+        activitySearching.stopAnimating()
         setupView()
     }
     
@@ -164,8 +158,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     func setupView() {
-        activitySearching.stopAnimating()
-        searchingDevicesLabel.hidden = true
+        //activitySearching.stopAnimating()
         ssid = SSIdInfo.currentWifiSSID()
         var ssidDisplay: String = String()
         
@@ -187,8 +180,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         } else {
             lblDevices.text = "No devices discovered on \"\(ssidDisplay)\""
             btnAction.setTitle("Information", forState: UIControlState.Normal)
-            activitySearching.startAnimating()
-            searchingDevicesLabel.hidden = false
+            //activitySearching.startAnimating()
         }
         
         btnAction.hidden = false

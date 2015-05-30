@@ -42,13 +42,6 @@
                                 <rect key="frame" x="40" y="78" width="240" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for devices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0fq-AA-81t">
-                                <rect key="frame" x="56" y="298" width="208" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -56,7 +49,6 @@
                         <outlet property="activitySearching" destination="R0A-h8-nmE" id="BDO-vG-Riq"/>
                         <outlet property="btnAction" destination="9RJ-4m-XsV" id="RIc-W3-53Q"/>
                         <outlet property="lblDevices" destination="hKn-L0-sFe" id="ENV-r4-8vK"/>
-                        <outlet property="searchingDevicesLabel" destination="0fq-AA-81t" id="3oc-95-58N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SaX-6W-TFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
