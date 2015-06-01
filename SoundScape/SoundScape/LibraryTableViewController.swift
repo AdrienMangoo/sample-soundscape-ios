@@ -12,6 +12,7 @@ import Alamofire
 class LibraryTableViewController: UITableViewController {
 
     var medias = NSMutableOrderedSet()
+    var thumbnailImages = NSMutableOrderedSet()
     
     var userColor: String? = nil
     /// MultiScreenManager instance that manages the interaction with the services
@@ -23,22 +24,44 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        Alamofire.request(.GET, "http://s3-us-west-1.amazonaws.com/dev-multiscreen-music-library/library.json").responseJSON() {
-            (_, _, data, _) in
-            println(data)
-            let mediaInfos = (data as! [NSDictionary]).map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as? String, id: self.generateTrackId(), duration: $0["duration"] as? Int, color:self.userColor)}
-            println(mediaInfos)
+        let config = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        
+        let session = NSURLSession(configuration: config)
+        
+        //[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        let url = NSURL(string: "http://s3-us-west-1.amazonaws.com/dev-multiscreen-music-library/library.json")
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)) { [unowned self]  () -> Void in
             
-            self.medias.addObjectsFromArray(mediaInfos)
-            println(self.medias)
+            let dataTask = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+                if (error == nil) {
+                    
+                    let httpResp = response as! NSHTTPURLResponse
+                    if httpResp.statusCode == 200 {
+                        
+                        var serializationError: NSError?
+                        let mediaData: [Dictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [[String:AnyObject]]
+                        
+                        if (serializationError == nil) {
+                            let mediaInfos = mediaData.map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as? String, id: self.generateTrackId(), duration: $0["duration"] as? Int, color:self.userColor)}
+                            
+                            
+                            self.medias.addObjectsFromArray(mediaInfos)
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.tableView.reloadData()
+                            })
+                            
+                        }
+                    }
+                }
+            })
             
-            self.tableView.reloadData()
-            
-            //let photoInfos = ((data as! NSDictionary).valueForKey("photos") as! [NSDictionary])
+            dataTask.resume()
         }
+        
         
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = self.userColor?.stringToColor()
@@ -97,17 +120,50 @@ class LibraryTableViewController: UITableViewController {
         if cell.respondsToSelector("setLayoutMargins:") {
             cell.layoutMargins = UIEdgeInsetsZero
         }
-        
+        cell.thumbnailImageView.image = UIImage(named: "album_placeholder")
         if let imageURLEncoded = imageURL!.URLEncodedString() {
-            Alamofire.request(.GET, imageURLEncoded).response() {
-                (_, _, data, _) in
-                
-                let image = UIImage(data: data! as! NSData)
-                cell.thumbnailImageView.image = image
-            }
+            
+//            Alamofire.request(.GET, imageURLEncoded).response() {
+//                (_, _, data, _) in
+//                
+//                let image = UIImage(data: data! as! NSData)
+//                cell.thumbnailImageView.image = image
+//            }
+
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)) { [unowned self]  () -> Void in
+//                let url = NSURL(string: imageURLEncoded)
+//                
+//                let downloadPhotoTask: NSURLSessionDownloadTask = NSURLSession.sharedSession().downloadTaskWithURL(url!, completionHandler: { [unowned self] (location, response, error) -> Void in
+//                    let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)
+//                    dispatch_async(dispatch_get_main_queue(),{
+//                        if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? MediaTableViewCell {
+//                            updateCell.thumbnailImageView.image = downloadedImage
+//                        }
+//                        //cell.thumbnailImageView.image = downloadedImage
+//                    })
+//                    
+//                    })
+//                downloadPhotoTask.resume()
+//            }
+            
+            let url = NSURL(string: imageURLEncoded)
+            cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
+            
+            
         }
         return cell
     }
+    
+    
+    // returns nil if cell is not visible or index path is out of range
+    func cellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell?  {
+        if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? MediaTableViewCell {
+            //updateCell.thumbnailImageView.image = downloadedImage
+            return updateCell
+        }
+        return nil
+    }
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         

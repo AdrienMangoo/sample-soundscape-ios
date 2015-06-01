@@ -21,11 +21,10 @@
 		CD4C39AE1B02C49300621465 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39AD1B02C49300621465 /* MediaTableViewCell.swift */; };
 		CD4C39B21B02C73400621465 /* QueueMediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39B11B02C73400621465 /* QueueMediaTableViewCell.swift */; };
 		CD4C39B41B02D94800621465 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39B31B02D94800621465 /* LibraryTableViewController.swift */; };
-		CD4C39D81B03C8BE00621465 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4C39D11B03C8B300621465 /* Alamofire.framework */; };
-		CD4C39D91B03C8BE00621465 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD4C39D11B03C8B300621465 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD4C39DD1B03CCD100621465 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39DC1B03CCD100621465 /* MediaItem.swift */; };
 		CD76AEA61B0DC062006455F1 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76AEA51B0DC062006455F1 /* InformationViewController.swift */; };
 		CD76AEAC1B0DC299006455F1 /* Information.html in Resources */ = {isa = PBXBuildFile; fileRef = CD76AEAB1B0DC299006455F1 /* Information.html */; };
+		CD83122C1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD83122B1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift */; };
 		CD9584061B0BF15C00F45CF7 /* MSF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB1ADA91B0BC39E00AB987A /* MSF.framework */; };
 		CD9584071B0BF15C00F45CF7 /* MSF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB1ADA91B0BC39E00AB987A /* MSF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDE75E5B1B184C3800C6B3F9 /* SSIdInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE75E5A1B184C3800C6B3F9 /* SSIdInfo.m */; };
@@ -40,41 +39,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = CD4C396B1B02B5D700621465;
 			remoteInfo = SoundScape;
-		};
-		CD4C39D01B03C8B300621465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-		CD4C39D21B03C8B300621465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
-			remoteInfo = "Alamofire OSX";
-		};
-		CD4C39D41B03C8B300621465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS Tests";
-		};
-		CD4C39D61B03C8B300621465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
-			remoteInfo = "Alamofire OSX Tests";
-		};
-		CD4C39DA1B03C8BF00621465 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
 		};
 		CD9584081B0BF15C00F45CF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -106,7 +70,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CD4C39D91B03C8BE00621465 /* Alamofire.framework in Embed Frameworks */,
 				CD9584071B0BF15C00F45CF7 /* MSF.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -133,10 +96,10 @@
 		CD4C39AD1B02C49300621465 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		CD4C39B11B02C73400621465 /* QueueMediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueMediaTableViewCell.swift; sourceTree = "<group>"; };
 		CD4C39B31B02D94800621465 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
-		CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		CD4C39DC1B03CCD100621465 /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		CD76AEA51B0DC062006455F1 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		CD76AEAB1B0DC299006455F1 /* Information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Information.html; sourceTree = "<group>"; };
+		CD83122B1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AFNetworking.swift"; sourceTree = "<group>"; };
 		CDB1ADA31B0BC39E00AB987A /* MSF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MSF.xcodeproj; path = MSF/iOS/MSF/MSF.xcodeproj; sourceTree = "<group>"; };
 		CDE75E581B184C3700C6B3F9 /* SoundScape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SoundScape-Bridging-Header.h"; sourceTree = "<group>"; };
 		CDE75E591B184C3800C6B3F9 /* SSIdInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSIdInfo.h; sourceTree = "<group>"; };
@@ -153,7 +116,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD03D9E81B16A3D70084D765 /* SystemConfiguration.framework in Frameworks */,
-				CD4C39D81B03C8BE00621465 /* Alamofire.framework in Frameworks */,
 				CD9584061B0BF15C00F45CF7 /* MSF.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,7 +135,6 @@
 			children = (
 				CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */,
 				CDB1ADA31B0BC39E00AB987A /* MSF.xcodeproj */,
-				CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */,
 				CD4C396E1B02B5D700621465 /* SoundScape */,
 				CD4C39841B02B5D700621465 /* SoundScapeTests */,
 				CD4C396D1B02B5D700621465 /* Products */,
@@ -215,6 +176,7 @@
 				CDE75E591B184C3800C6B3F9 /* SSIdInfo.h */,
 				CDE75E5A1B184C3800C6B3F9 /* SSIdInfo.m */,
 				CDE75E581B184C3700C6B3F9 /* SoundScape-Bridging-Header.h */,
+				CD83122B1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift */,
 			);
 			path = SoundScape;
 			sourceTree = "<group>";
@@ -244,17 +206,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CD4C39CA1B03C8B300621465 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CD4C39D11B03C8B300621465 /* Alamofire.framework */,
-				CD4C39D31B03C8B300621465 /* Alamofire.framework */,
-				CD4C39D51B03C8B300621465 /* Alamofire iOS Tests.xctest */,
-				CD4C39D71B03C8B300621465 /* Alamofire OSX Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CDB1ADA41B0BC39E00AB987A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,7 +230,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CD4C39DB1B03C8BF00621465 /* PBXTargetDependency */,
 				CD9584091B0BF15C00F45CF7 /* PBXTargetDependency */,
 			);
 			name = SoundScape;
@@ -337,10 +287,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CD4C39CA1B03C8B300621465 /* Products */;
-					ProjectRef = CD4C39C91B03C8B300621465 /* Alamofire.xcodeproj */;
-				},
-				{
 					ProductGroup = CDB1ADA41B0BC39E00AB987A /* Products */;
 					ProjectRef = CDB1ADA31B0BC39E00AB987A /* MSF.xcodeproj */;
 				},
@@ -354,34 +300,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CD4C39D11B03C8B300621465 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = CD4C39D01B03C8B300621465 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CD4C39D31B03C8B300621465 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = CD4C39D21B03C8B300621465 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CD4C39D51B03C8B300621465 /* Alamofire iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire iOS Tests.xctest";
-			remoteRef = CD4C39D41B03C8B300621465 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CD4C39D71B03C8B300621465 /* Alamofire OSX Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire OSX Tests.xctest";
-			remoteRef = CD4C39D61B03C8B300621465 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		CDB1ADA91B0BC39E00AB987A /* MSF.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -426,6 +344,7 @@
 			files = (
 				CDE75E5B1B184C3800C6B3F9 /* SSIdInfo.m in Sources */,
 				CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */,
+				CD83122C1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift in Sources */,
 				CD4C399F1B02B6FA00621465 /* MultiScreenManager.swift in Sources */,
 				CD4C39DD1B03CCD100621465 /* MediaItem.swift in Sources */,
 				CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */,
@@ -456,11 +375,6 @@
 			isa = PBXTargetDependency;
 			target = CD4C396B1B02B5D700621465 /* SoundScape */;
 			targetProxy = CD4C39821B02B5D700621465 /* PBXContainerItemProxy */;
-		};
-		CD4C39DB1B03C8BF00621465 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire iOS";
-			targetProxy = CD4C39DA1B03C8BF00621465 /* PBXContainerItemProxy */;
 		};
 		CD9584091B0BF15C00F45CF7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
