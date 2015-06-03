@@ -136,6 +136,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     func serviceConnected() {
+        dismissQueueVC()
         if (mainViewController != nil) {
             //mainViewController?.setupView()
             return
@@ -219,8 +220,8 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // Now the popoverPresentationController has been created
         if let popoverController = popoverVC.popoverPresentationController {
-            //popoverController.sourceView = sender
-            //popoverController.sourceRect = sender.bounds
+            //popoverController.sourceView = self.view
+            //popoverController.sourceRect = self.view.bounds
             //popoverController.permittedArrowDirections = .Any
             //popoverController.delegate = self
         }

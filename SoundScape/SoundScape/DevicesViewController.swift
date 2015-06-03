@@ -64,28 +64,8 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func refreshTableView(){
         
         /// Populate Temp services array with services not connected
-        services = multiScreenManager.servicesNotConnected()
+        services = multiScreenManager.servicesCopy()
         
-        /*
-        /// Used to change the Cast icon, depending on whether a service is connected or not
-        if (multiScreenManager.isConnected){
-            title.text = "Connected to:"
-            icon.image = UIImage(named: "ic_connected")
-            serviceConnectedName.text =  multiScreenManager.currentService.name
-            /// Used to change the header size
-            if (services.count>0){
-                headerViewConstraint.constant = 161
-            } else {
-                headerViewConstraint.constant = 123
-            }
-            lineImage.backgroundColor = UIColor.whiteColor()
-        } else {
-            title.text = "Connect to:"
-            icon.image = UIImage(named: "ic_discovered")
-            lineImage.backgroundColor = UIColor.blackColor()
-            headerViewConstraint.constant = 41
-        }
-        */
         devicesTableView.layoutIfNeeded()
         devicesTableView.reloadData()
     }
@@ -169,15 +149,20 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //title.text = "Connecting"
         /// If cell is selected then connect and start the application
-        multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { [unowned self](success: Bool!) -> Void in
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        self.closeView()
+        multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { (success: Bool!) -> Void in
             hud.hide(true)
             if ((success) == false){
-                self.displayAlertWithTitle("", message: "Connection could not be established")
-                self.closeView()
+                //self.displayAlertWithTitle("", message: "Connection could not be established")
+                //self.closeView()
+                var  alertView:UIAlertView = UIAlertView(title: "" as String, message: "Connection could not be established" as String, delegate: self, cancelButtonTitle: "OK")
+                alertView.alertViewStyle = .Default
+                alertView.show()
             } else {
                 //NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceSelectedObserverIdentifier, object: self)
                 
-                self.closeView()
+                //self.closeView()
                 NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceConnectedObserverIdentifier, object: self)
             }
             })
@@ -205,9 +190,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
     /// Close the current View
     func closeView() {
         dismissViewControllerAnimated(true, completion: nil)

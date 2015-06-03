@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class QueueTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate {
 
@@ -137,12 +136,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         let userColor = (queueMedias[indexPath.row] as! MediaItem).color
         if let imageURLEncoded = imageURL!.URLEncodedString() {
-            Alamofire.request(.GET, imageURLEncoded).response() {
-                (_, _, data, _) in
-                
-                let image = UIImage(data: data! as! NSData)
-                cell.thumbnailImageView.image = image
-            }
+            let url = NSURL(string: imageURLEncoded)
+            cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
         }
         cell.userColorImageView.image = UIImage.imageWithStringColor(userColor!)
         if self.currentTrackState == "playing" {

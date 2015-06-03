@@ -164,6 +164,18 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         return servicesArray
     }
     
+    /// Return all services availables but not currently connected
+    ///
+    /// :return: Array of Services
+    func servicesCopy() -> [Service]{
+        
+        var servicesArray = [Service]()
+        for (value) in services {
+            servicesArray.append(value)
+        }
+        return servicesArray
+    }
+    
    
     /// Connect to an Application
     ///
