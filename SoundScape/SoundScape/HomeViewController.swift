@@ -45,10 +45,12 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         ssid = SSIdInfo.currentWifiSSID()
         reachabilityForWifi.startNotifier()
+        
+        //activitySearching.startAnimating()
     }
     
     override func viewWillAppear(animated: Bool) {
-        activitySearching.startAnimating()
+        //activitySearching.startAnimating()
         
         btnAction.hidden = true
         lblDevices.text = " "

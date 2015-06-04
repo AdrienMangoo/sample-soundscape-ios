@@ -56,6 +56,11 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     
     @IBAction func nextTrackButtonPressed(sender: AnyObject) {
         multiScreenManager.sendNextTrack()
+        
+        if self.queueMedias.count > 0 {
+            self.queueMedias.removeObjectAtIndex(0)
+            self.queueTableView.reloadData()
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +69,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         // self.clearsSelectionOnViewWillAppear = false
 
         let homeVC = UIApplication.sharedApplication().keyWindow?.rootViewController as! HomeViewController
-        
         
         
         // Add an observer to check if a tv is connected
@@ -140,11 +144,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
         }
         cell.userColorImageView.image = UIImage.imageWithStringColor(userColor!)
-        if self.currentTrackState == "playing" {
-            cell.nowPlayingImageView.hidden = true
-        } else {
-            cell.nowPlayingImageView.hidden = true
-        }
+        
         return cell
         
     }

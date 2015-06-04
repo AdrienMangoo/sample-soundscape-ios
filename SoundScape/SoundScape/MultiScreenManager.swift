@@ -130,6 +130,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     /// onServiceFound delegate method
     func onServiceFound(service: Service) {
         services.append(service)
+        
         println(service.name)
         /// post a notification to the NSNotificationCenter
         postNotification()
