@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CD03D9DF1B154D650084D765 /* DeviceDisconnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */; };
 		CD03D9E81B16A3D70084D765 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */; };
+		CD0429631B1FCF1D002CE680 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0429611B1FCF1D002CE680 /* String+Helpers.swift */; };
+		CD0429641B1FCF1D002CE680 /* UIImage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */; };
 		CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD43E9811B1523A70076AC7E /* DevicesViewController.swift */; };
 		CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39711B02B5D700621465 /* AppDelegate.swift */; };
 		CD4C39771B02B5D700621465 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD4C39751B02B5D700621465 /* Main.storyboard */; };
@@ -80,6 +82,8 @@
 /* Begin PBXFileReference section */
 		CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDisconnectViewController.swift; sourceTree = "<group>"; };
 		CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CD0429611B1FCF1D002CE680 /* String+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Helpers.swift"; sourceTree = "<group>"; };
+		CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helpers.swift"; sourceTree = "<group>"; };
 		CD43E9811B1523A70076AC7E /* DevicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
 		CD4C396C1B02B5D700621465 /* SoundScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4C39701B02B5D700621465 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 		CD4C396E1B02B5D700621465 /* SoundScape */ = {
 			isa = PBXGroup;
 			children = (
+				CD0429611B1FCF1D002CE680 /* String+Helpers.swift */,
+				CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */,
 				CDE75E5F1B18588B00C6B3F9 /* Reachability.h */,
 				CDE75E601B18588B00C6B3F9 /* Reachability.m */,
 				CDE75E5C1B184D5000C6B3F9 /* MBProgressHUD.h */,
@@ -346,7 +352,9 @@
 				CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */,
 				CD83122C1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift in Sources */,
 				CD4C399F1B02B6FA00621465 /* MultiScreenManager.swift in Sources */,
+				CD0429631B1FCF1D002CE680 /* String+Helpers.swift in Sources */,
 				CD4C39DD1B03CCD100621465 /* MediaItem.swift in Sources */,
+				CD0429641B1FCF1D002CE680 /* UIImage+Helpers.swift in Sources */,
 				CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */,
 				CD03D9DF1B154D650084D765 /* DeviceDisconnectViewController.swift in Sources */,
 				CD4C39AC1B02C38600621465 /* QueueTableViewController.swift in Sources */,

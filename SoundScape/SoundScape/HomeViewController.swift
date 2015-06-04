@@ -93,7 +93,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 hud.yOffset = someFloat
                 self.view.addSubview(hud)
                 
-                let toastMsg =  String("connecting to ") + (multiScreenManager.services[0] as Service).name
+                let toastMsg =  String("connecting to ") + (multiScreenManager.services[0] as Service).displayName
                 
                 hud.labelText = toastMsg
                 hud.show(true)
@@ -175,7 +175,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             lblDevices.text = "WiFi is not connected"
             btnAction.setTitle("Settings", forState: UIControlState.Normal)
         } else if (multiScreenManager.services.count == 1 ) {
-            lblDevices.text = "Discovered \(multiScreenManager.services[0].name) on \"\(ssidDisplay)\""
+            lblDevices.text = "Discovered \(multiScreenManager.services[0].displayName) on \"\(ssidDisplay)\""
             btnAction.setTitle("Connect", forState: UIControlState.Normal)
         } else if (multiScreenManager.services.count > 1 ) {
             lblDevices.text = "Found \(multiScreenManager.services.count) devices on \"\(ssidDisplay)\""

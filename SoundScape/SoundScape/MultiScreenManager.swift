@@ -131,7 +131,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     func onServiceFound(service: Service) {
         services.append(service)
         
-        println(service.name)
+        println(service.displayName)
         /// post a notification to the NSNotificationCenter
         postNotification()
     }
@@ -338,7 +338,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         
     }
     func isSpeaker(service: Service) -> Bool {
-        println("service info: Name - \(service.name) Type - \(service.type)")
+        println("service info: Name - \(service.displayName) Type - \(service.type)")
         return service.type.endsWith("Speaker")
     }
 }

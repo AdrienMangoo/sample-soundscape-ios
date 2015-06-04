@@ -257,7 +257,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     
     func setupView() {
         
-        connectedDeviceLabel.text = multiScreenManager.currentService.name
+        connectedDeviceLabel.text = multiScreenManager.currentService.displayName
         connectedDeviceImageView.image = multiScreenManager.isSpeaker(multiScreenManager.app.service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
         self.userColor = chooseUserColor()
