@@ -62,6 +62,12 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     /// Name of the observer identifier for current track status
     let currentTrackStatusObserverIdentifier: String = "currentTrackStatus"
     
+    /// Name of the observer identifier for remove track
+    let removeTrackObserverIdentifier: String = "removeTrack"
+
+    /// Name of the observer identifier for track start
+    let trackStartObserverIdentifier: String = "trackStart"
+    
     let dismissQueueVCObserverIdentifier: String = "dismissQueueVC"
     
     
@@ -302,7 +308,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     func onMessage(message: Message) {
         println(message.event)
-        println(message.data)
+        //println(message.data)
         
         if message.event == "appState" {
             if let dict = message.data as? [String: AnyObject] {
@@ -329,14 +335,21 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
             }
         } else if message.event == "trackEnd" {
             sendAppStateRequest()
+        } else if message.event == "removeTrack" {
+            println(message.data)
+            if  let removeTrackId = message.data as? String {
+                println(removeTrackId)
+                NSNotificationCenter.defaultCenter().postNotificationName(removeTrackObserverIdentifier, object: self, userInfo: ["userInfo" : removeTrackId])
+            }
+        } else if message.event == "trackStart" {
+            println(message.data)
+            if  let trackStartId = message.data as? String {
+                println(trackStartId)
+                NSNotificationCenter.defaultCenter().postNotificationName(trackStartObserverIdentifier, object: self, userInfo: ["userInfo" : trackStartId])
+            }
         }
     }
     
-    func onData(message: Message, payload: NSData) {
-        println(message.event)
-        println(payload)
-        
-    }
     func isSpeaker(service: Service) -> Bool {
         println("service info: Name - \(service.displayName) Type - \(service.type)")
         return service.type.endsWith("Speaker")

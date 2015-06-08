@@ -80,9 +80,14 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         // Add an observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentStatus:", name: multiScreenManager.currentTrackStatusObserverIdentifier, object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeTrack:", name: multiScreenManager.removeTrackObserverIdentifier, object: nil)
         
         // Add an observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addTrack:", name: multiScreenManager.addTrackObserverIdentifier, object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "trackStart:", name: multiScreenManager.trackStartObserverIdentifier, object: nil)
+        
         
         if queueTableView.respondsToSelector("setSeparatorInset:") {
             queueTableView.separatorInset = UIEdgeInsetsZero
@@ -194,6 +199,38 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    func removeTrack(notification: NSNotification) {
+        let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
+        if let removeTrackId = userInfo["userInfo"] as? String {
+            var row = 0
+            for elem in self.queueMedias {
+                let queueMediaItem = elem as! MediaItem
+                if (queueMediaItem.id == removeTrackId) {
+                    let indexPath = NSIndexPath(forRow: row, inSection: 0)
+                    queueMedias.removeObjectAtIndex(indexPath.row)
+                    self.queueTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    break
+                }
+                row++
+            }
+        }
+    }
+    
+    func trackStart(notification: NSNotification) {
+        let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
+        if let removeTrackId = userInfo["userInfo"] as? String {
+            var row = 0
+            for elem in self.queueMedias {
+                let queueMediaItem = elem as! MediaItem
+                if (queueMediaItem.id == removeTrackId) {
+                    println("trackStart table row \(row)")
+                    break
+                }
+                row++
+            }
+        }
+    }
+    
     func playPause() {
         if self.currentTrackState == "playing" {
             multiScreenManager.sendPlayPause(false)
@@ -206,22 +243,19 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     
     
     func updateCurrentStatus(notification: NSNotification) {
-        println(notification)
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
         if let currentStatusDict = (userInfo["userInfo"] as? [String:AnyObject]) {
             self.currentTrackId = currentStatusDict["id"] as! String
             self.currentTrackState = currentStatusDict["state"] as! String
             
             setupToolbar()
-            //self.queueTableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
         }
     }
     
     func setupToolbar() {
         
         for elem in self.queueMedias {
-            let queueMediaItem  = elem as! MediaItem
+            let queueMediaItem = elem as! MediaItem
             if (queueMediaItem.id == currentTrackId) {
                 self.currentTrackTitleLabel.text = queueMediaItem.title
                 self.currentTrackNameLabel.text = queueMediaItem.name
@@ -290,16 +324,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func showDisconnectPopover(sender: AnyObject) {
-        /*
-        let disconnectVC = self.storyboard?.instantiateViewControllerWithIdentifier("DeviceDisconnectViewController") as? UIViewController
-        
-        disconnectPopoverController = UIPopoverController(contentViewController: disconnectVC!)
-        disconnectPopoverController?.popoverContentSize = CGSize(width: 100, height: 100)
-        disconnectPopoverController?.presentPopoverFromRect((sender as! UIButton).frame, inView: self.view, permittedArrowDirections: .Any, animated: true)
-        */
-        
         let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DeviceDisconnectViewController") as! DeviceDisconnectViewController
-        //popoverVC.modalPresentationStyle = .Popover
         popoverVC.userColor = self.userColor
         popoverVC.modalTransitionStyle = .CrossDissolve
         popoverVC.view.backgroundColor = UIColor.clearColor()
@@ -318,15 +343,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         popoverVC.view.tag = 1
         // Present it before configuring it
         presentViewController(popoverVC, animated: true, completion: nil)
-        
-        
-        // Now the popoverPresentationController has been created
-        if let popoverController = popoverVC.popoverPresentationController {
-            //popoverController.sourceView = sender
-            //popoverController.sourceRect = sender.bounds
-            //popoverController.permittedArrowDirections = .Any
-            //popoverController.delegate = self
-        }
         
     }
     
