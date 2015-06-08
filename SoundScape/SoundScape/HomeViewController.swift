@@ -122,8 +122,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
                         alertView.alertViewStyle = .Default
                         alertView.show()
                     } else {
-                        //NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceSelectedObserverIdentifier, object: self)
-                        
                         NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceConnectedObserverIdentifier, object: self)
                     }
                     })
@@ -141,16 +139,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     func searchTimerFired() {
         activitySearching.stopAnimating()
         setupView()
-    }
-    
-    func serviceSelected() {
-        if (mainViewController != nil) {
-            println("ERROR - Check")
-        } else {
-            mainViewController = self.storyboard?.instantiateViewControllerWithIdentifier("QueueTableViewControllerID") as? QueueTableViewController
-            mainViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-            presentViewController(mainViewController!, animated: true, completion: nil)
-        }
     }
     
     func serviceConnected() {

@@ -51,9 +51,6 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     /// Name of the observer identifier for service connected
     let serviceConnectedObserverIdentifier: String = "serviceConnected"
     
-    /// Name of the observer identifier for service selected
-    let serviceSelectedObserverIdentifier: String = "serviceSelected"
-    
     /// Name of the observer identifier for refresh queue
     let refreshQueueObserverIdentifier: String = "refreshQueue"
     
@@ -67,6 +64,9 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
 
     /// Name of the observer identifier for track start
     let trackStartObserverIdentifier: String = "trackStart"
+    
+    /// Name of the observer identifier for assign color
+    let assignColorObserverIdentifier: String = "assignColor"
     
     let dismissQueueVCObserverIdentifier: String = "dismissQueueVC"
     
@@ -230,6 +230,11 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         //}
     }
     
+    func sendUserColorRequest() {
+        app.publish(event: "assignColorRequest", message: nil)
+    }
+    
+    
     func sendAddTrack(var mediaItem: MediaItem){
         if (isConnected) {
             var addTrackDict: NSDictionary =
@@ -337,15 +342,21 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
             sendAppStateRequest()
         } else if message.event == "removeTrack" {
             println(message.data)
-            if  let removeTrackId = message.data as? String {
+            if let removeTrackId = message.data as? String {
                 println(removeTrackId)
                 NSNotificationCenter.defaultCenter().postNotificationName(removeTrackObserverIdentifier, object: self, userInfo: ["userInfo" : removeTrackId])
             }
         } else if message.event == "trackStart" {
             println(message.data)
-            if  let trackStartId = message.data as? String {
+            if let trackStartId = message.data as? String {
                 println(trackStartId)
                 NSNotificationCenter.defaultCenter().postNotificationName(trackStartObserverIdentifier, object: self, userInfo: ["userInfo" : trackStartId])
+            }
+        } else if message.event == "assignColor" {
+            println(message.data)
+            if let assignColor = message.data as? String {
+                println(assignColor)
+                NSNotificationCenter.defaultCenter().postNotificationName(assignColorObserverIdentifier, object: self, userInfo: ["userInfo" : assignColor])
             }
         }
     }

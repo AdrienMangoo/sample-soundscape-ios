@@ -176,9 +176,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 alertView.alertViewStyle = .Default
                 alertView.show()
             } else {
-                //NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceSelectedObserverIdentifier, object: self)
-                
-                //self.closeView()
                 NSNotificationCenter.defaultCenter().postNotificationName(self.multiScreenManager.serviceConnectedObserverIdentifier, object: self)
             }
             })

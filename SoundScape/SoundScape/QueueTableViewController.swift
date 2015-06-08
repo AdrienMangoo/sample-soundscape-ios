@@ -86,10 +86,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
 
         let homeVC = UIApplication.sharedApplication().keyWindow?.rootViewController as! HomeViewController
         
-        
-        // Add an observer to check if a tv is connected
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "serviceSelected", name: multiScreenManager.serviceSelectedObserverIdentifier, object: nil)
-        
         // Add an observer to check for services status and manage the cast icon
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQueue:", name: multiScreenManager.refreshQueueObserverIdentifier, object: nil)
         
@@ -104,6 +100,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "trackStart:", name: multiScreenManager.trackStartObserverIdentifier, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "assignColor:", name: multiScreenManager.assignColorObserverIdentifier, object: nil)
+        
         
         if queueTableView.respondsToSelector("setSeparatorInset:") {
             queueTableView.separatorInset = UIEdgeInsetsZero
@@ -115,6 +113,10 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         self.queueTableView.allowsMultipleSelectionDuringEditing = false
         self.queueTableView.tableFooterView = UIView(frame: CGRectZero)
         //self.queueTableView.tableHeaderView = UIView(frame: CGRectZero)
+        
+        self.userColor = chooseUserColor()
+        
+        setupUserColorView()
         setupView()
         
     }
@@ -125,13 +127,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     }
 
     deinit {
-        println("$$$$$$$ QueueTableViewController - deinit")
-        /*
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.serviceSelectedObserverIdentifier, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.refreshQueueObserverIdentifier, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.currentTrackStatusObserverIdentifier, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: multiScreenManager.addTrackObserverIdentifier, object: nil)
-        */
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     // MARK: - Table view data source
@@ -247,6 +242,15 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    func assignColor(notification: NSNotification) {
+        let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
+        if let assignColor = userInfo["userInfo"] as? String {
+            self.userColor = assignColor
+            setupUserColorView()
+        }
+    }
+    
+    
     func playPause() {
         if self.currentTrackState == "playing" {
             multiScreenManager.sendPlayPause(false)
@@ -293,9 +297,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         mediaActionToolbar.items = toolbarItems
         
     }
-    func serviceSelected() {
-        //setupView()
-    }
     
     func chooseUserColor() -> String{
         let colors = ["#EF6C00","#1A237E","#689F38","#E91E63","#2196F3","#B71C1C","#01579B","#009688","#673AB7","#607D8B","#880E4F","#3F51B5","#827717","#9C27B0","#3E2723","#E65100","#006064","#1B5E20","#4A148C","#795548"]
@@ -304,18 +305,23 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         let userColor: String = colors[colorIndex]
         return userColor
     }
-    
+    func setupUserColorView() {
+        
+        let colorString = self.userColor
+        
+        userColorImageView.image = UIImage.imageWithStringColor(colorString)
+        userColorImageView.setNeedsDisplay()
+    }
     func setupView() {
         
         connectedDeviceLabel.text = multiScreenManager.currentService.displayName
         connectedDeviceImageView.image = multiScreenManager.isSpeaker(multiScreenManager.app.service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
-        self.userColor = chooseUserColor()
-        let colorString = self.userColor
-        
-        userColorImageView.image = UIImage.imageWithStringColor(colorString)
+        setupUserColorView()
         
         multiScreenManager.sendAppStateRequest()
+        
+        multiScreenManager.sendUserColorRequest()
         
         //mediaActionToolbar.hidden = true
         
