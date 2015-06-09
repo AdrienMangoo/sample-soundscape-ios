@@ -134,8 +134,6 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     /// onServiceFound delegate method
     func onServiceFound(service: Service) {
         services.append(service)
-        
-        println(service.displayName)
         /// post a notification to the NSNotificationCenter
         postNotification()
     }
@@ -192,27 +190,25 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         })
     }
     
-    /// Send Photo to the the connected Service
+    /// Send AppStateRequest event to the connected Service
     ///
-    /// :param: UIImage to be sent
-    func sendPhotoToTv(image: UIImage){
+    func sendAppStateRequest() {
         if (isConnected){
-            app.publish(event: "photoTransfer", message: nil)
-            app.publish(event: "showPhoto", message: nil, data: UIImageJPEGRepresentation(image, 0.6), target: MessageTarget.Host.rawValue)
+            app.publish(event: "appStateRequest", message: nil)
         }
     }
     
-    func sendAppStateRequest() {
-        //if (isConnected){
-            app.publish(event: "appStateRequest", message: nil)
-        //}
-    }
-    
+    /// Send UserColorRequest event to the connected Service
+    ///
     func sendUserColorRequest() {
-        app.publish(event: "assignColorRequest", message: nil)
+        if (isConnected){
+            app.publish(event: "assignColorRequest", message: nil)
+        }
     }
     
-    
+    /// Send AddTrack event to the the connected Service
+    ///
+    /// :param: MediaItem to be sent
     func sendAddTrack(var mediaItem: MediaItem){
         if (isConnected) {
             var addTrackDict: NSDictionary =
@@ -227,24 +223,29 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
                 "albumArtThumbnail":mediaItem.thumbnailURL!,
                 "color":mediaItem.color!
             ]
-            println(addTrackDict)
             app.publish(event: "addTrack", message: addTrackDict, target: MessageTarget.All.rawValue)
         }
     }
     
-    
+    /// Send PlayPause event to the the connected Service
+    ///
+    /// :param: true - play, false - pause
     func sendPlayPause(play: Bool) {
         if isConnected {
             app.publish(event: play ? "play":"pause", message: nil, target: MessageTarget.Broadcast.rawValue)
         }
     }
     
+    /// Send NextTrack event to the the connected Service
+    ///
     func sendNextTrack() {
         if isConnected {
             app.publish(event: "next", message: nil, target: MessageTarget.Broadcast.rawValue)
         }
     }
     
+    /// Send RemoveTrack event to the the connected Service
+    ///
     func sendRemoveTrack(var mediaItem: MediaItem) {
         if isConnected {
             app.publish(event: "removeTrack", message: mediaItem.id, target: MessageTarget.Broadcast.rawValue)
@@ -269,7 +270,6 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     func onConnect(client: ChannelClient?, error: NSError?) {
         if (error == nil) {
             stopSearching()
-            //NSNotificationCenter.defaultCenter().postNotificationName(serviceConnectedObserverIdentifier, object: self)
             /// post a notification to the NSNotificationCenter
             postNotification()
         }
@@ -282,21 +282,18 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     ///  :param: error: An error info if any
     func onDisconnect(client: ChannelClient?, error: NSError?) {
         startSearching()
-        /// post a notification to the NSNotificationCenter
-        //postNotification()
-        
         NSNotificationCenter.defaultCenter().postNotificationName(dismissQueueVCObserverIdentifier, object: self)
         
     }
-    
+    ///  ChannelDelegate
+    ///  Called when the Channel receives a text message
+    ///
+    ///  :param: message: Text message received
     func onMessage(message: Message) {
-        println(message.event)
-        //println(message.data)
         
         if message.event == "appState" {
             if let dict = message.data as? [String: AnyObject] {
                 let queueMediaInfos =  (dict["playlist"]! as! [NSDictionary]).map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as! String, id: $0["id"] as! String, duration: $0["duration"] as! Int, color: $0["color"] as! String)}
-                
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(refreshQueueObserverIdentifier, object: self, userInfo: ["userInfo" : queueMediaInfos])
                 
@@ -306,7 +303,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
             }
         } else if message.event == "addTrack" {
             if let mediaItem = message.data as? [String:AnyObject] {
-                let queueMediaItem = [MediaItem(artist: mediaItem["artist"] as? String, name: mediaItem["album"] as? String, title: mediaItem["title"] as? String, fileURL: mediaItem["file"] as? String, albumArtURL: mediaItem["albumArt"] as? String, thumbnailURL: mediaItem["albumArtThumbnail"] as? String, id: mediaItem["id"] as? String, duration: mediaItem["duration"] as? Int, color: mediaItem["color"] as? String)]
+                let queueMediaItem = [MediaItem(artist: (mediaItem["artist"] as? String)!, name: (mediaItem["album"] as? String)!, title: (mediaItem["title"] as? String)!, fileURL: (mediaItem["file"] as? String)!, albumArtURL: (mediaItem["albumArt"] as? String)!, thumbnailURL: (mediaItem["albumArtThumbnail"] as? String)!, id: (mediaItem["id"] as? String)!, duration: (mediaItem["duration"] as? Int)!, color: (mediaItem["color"] as? String)!)]
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(addTrackObserverIdentifier, object: self, userInfo: ["userInfo" : queueMediaItem])
             }
@@ -319,28 +316,21 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         } else if message.event == "trackEnd" {
             sendAppStateRequest()
         } else if message.event == "removeTrack" {
-            println(message.data)
             if let removeTrackId = message.data as? String {
-                println(removeTrackId)
                 NSNotificationCenter.defaultCenter().postNotificationName(removeTrackObserverIdentifier, object: self, userInfo: ["userInfo" : removeTrackId])
             }
         } else if message.event == "trackStart" {
-            println(message.data)
             if let trackStartId = message.data as? String {
-                println(trackStartId)
                 NSNotificationCenter.defaultCenter().postNotificationName(trackStartObserverIdentifier, object: self, userInfo: ["userInfo" : trackStartId])
             }
         } else if message.event == "assignColor" {
-            println(message.data)
             if let assignColor = message.data as? String {
-                println(assignColor)
                 NSNotificationCenter.defaultCenter().postNotificationName(assignColorObserverIdentifier, object: self, userInfo: ["userInfo" : assignColor])
             }
         }
     }
     
     func isSpeaker(service: Service) -> Bool {
-        println("service info: Name - \(service.displayName) Type - \(service.type)")
         return service.type.endsWith("Speaker")
     }
 }

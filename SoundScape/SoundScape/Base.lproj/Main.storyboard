@@ -151,7 +151,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="addButonPressed:" destination="Tji-q5-vNm" eventType="touchUpInside" id="42c-BH-ee4"/>
                                     <segue destination="2wT-Dk-ku1" kind="modal" identifier="LibraryNavigationVC" id="qF5-6b-4GH"/>
                                 </connections>
                             </button>

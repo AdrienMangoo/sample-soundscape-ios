@@ -61,6 +61,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     override func viewWillAppear(animated: Bool) {
         btnAction.hidden = true
+        self.lblDevices.text = "Searching for devices...."
         multiScreenManager.startSearching()
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector:  Selector("searchTimerFired"), userInfo: nil, repeats: false)
@@ -131,6 +132,8 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         setupView()
     }
     
+    /// called when you connect to a Service
+    ///
     func serviceConnected() {
         dismissQueueVC()
         if (mainViewController != nil) {
@@ -142,11 +145,14 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             presentViewController(mainViewController!, animated: true, completion: nil)
         }
     }
-    
+    /// avaliable services list has changes
+    ///
     func servicesChanged() {
         setupView()
     }
     
+    /// sets up the view
+    ///
     func setupView() {
 
         if (multiScreenManager.isConnected) {
@@ -180,12 +186,15 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         btnAction.hidden = false
     }
-    
+    /// dismisses the Queue/PlayList View Controller
+    ///
     func dismissQueueVC() {
         self.dismissViewControllerAnimated(true, completion: nil)
         mainViewController = nil
     }
     
+    /// Shows the Devices List
+    ///
     func showDevices() {
         
         let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DevicesViewController") as! UIViewController
@@ -208,6 +217,8 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
     }
     
+    /// wifi reachability changed notification
+    ///
     func reachabilityChanged(notification: NSNotification) {
         self.reachabilityForWifi = notification.object as? Reachability
         setupView()

@@ -61,15 +61,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         showDisconnectPopover(sender)
     }
     
-    @IBAction func addButonPressed(sender: AnyObject) {
-    }
-    
-    @IBAction func testButtonPressed(sender: AnyObject) {
-        
-        //multiScreenManager.sendAppStateRequest()
-        multiScreenManager.sendPlayPause(true)
-    }
-    
     @IBAction func nextTrackButtonPressed(sender: AnyObject) {
         multiScreenManager.sendNextTrack()
         
@@ -176,8 +167,9 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
 
+    /// refrehes the devices table view
+    ///
     func refreshQueue(notification: NSNotification) {
-        //println(notification)
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
         let queueMediaInfos = userInfo["userInfo"] as! [MediaItem]
         
@@ -193,6 +185,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    /// adds track to the PlayList
+    ///
     func addTrack(notification: NSNotification) {
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
         let queueMediaInfos = userInfo["userInfo"] as! [MediaItem]
@@ -207,7 +201,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             mediaActionToolbar.hidden = true
         }
     }
-    
+    /// removes track
+    ///
     func removeTrack(notification: NSNotification) {
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
         if let removeTrackId = userInfo["userInfo"] as? String {
@@ -225,14 +220,15 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    ///
     func trackStart(notification: NSNotification) {
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
-        if let removeTrackId = userInfo["userInfo"] as? String {
+        if let startTrackId = userInfo["userInfo"] as? String {
             var row = 0
             for elem in self.queueMedias {
                 let queueMediaItem = elem as! MediaItem
-                if (queueMediaItem.id == removeTrackId) {
-                    println("trackStart table row \(row)")
+                if (queueMediaItem.id == startTrackId) {
+                    // do something
                     break
                 }
                 row++
@@ -247,7 +243,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             setupUserColorView()
         }
     }
-    
     
     func playPause() {
         if self.currentTrackState == "playing" {
@@ -292,7 +287,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         toolbarItems?[0] = button
         mediaActionToolbar.items = toolbarItems
-        
     }
     
     func setupUserColorView() {
@@ -302,6 +296,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         userColorImageView.image = UIImage.imageWithStringColor(colorString)
         userColorImageView.setNeedsDisplay()
     }
+    
     func setupView() {
         
         connectedDeviceLabel.text = multiScreenManager.currentService.displayName
@@ -309,9 +304,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         setupUserColorView()
         
-        multiScreenManager.sendAppStateRequest()
-        
         multiScreenManager.sendUserColorRequest()
+        multiScreenManager.sendAppStateRequest()
         
         var button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action: "playPause")
         button.tintColor = UIColor.whiteColor()
@@ -325,6 +319,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         currentTrackNameLabel.text = "name"
         currentTrackTitleLabel.text = "title"
     }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "LibraryNavigationVC" {
             let libraryNaviVC = segue.destinationViewController as! UINavigationController

@@ -35,7 +35,7 @@ class MediaItem: NSObject {
     var id: String?
     var duration: Int?
     var color: String?
-    init(artist: String?, name: String?, title: String?, fileURL: String?, albumArtURL: String?, thumbnailURL: String?, id: String?, duration: Int?, color: String?) {
+    init(artist: String, name: String, title: String, fileURL: String, albumArtURL: String, thumbnailURL: String, id: String, duration: Int, color: String) {
         self.artist = artist
         self.name = name
         self.title = title

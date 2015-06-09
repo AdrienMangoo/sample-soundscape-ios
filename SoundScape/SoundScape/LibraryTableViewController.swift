@@ -60,8 +60,7 @@ class LibraryTableViewController: UITableViewController {
                         let mediaData: [Dictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [[String:AnyObject]]
                         
                         if (serializationError == nil) {
-                            let mediaInfos = mediaData.map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as? String, id: self.generateTrackId(), duration: $0["duration"] as? Int, color:self.userColor)}
-                            
+                            let mediaInfos = mediaData.map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: ($0["albumArtThumbnail"] as? String)!, id: self.generateTrackId(), duration: ($0["duration"] as? Int)!, color:self.userColor!)}
                             
                             self.medias.addObjectsFromArray(mediaInfos)
                             
@@ -138,29 +137,6 @@ class LibraryTableViewController: UITableViewController {
         cell.thumbnailImageView.image = UIImage(named: "album_placeholder")
         if let imageURLEncoded = imageURL!.URLEncodedString() {
             
-//            Alamofire.request(.GET, imageURLEncoded).response() {
-//                (_, _, data, _) in
-//                
-//                let image = UIImage(data: data! as! NSData)
-//                cell.thumbnailImageView.image = image
-//            }
-
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)) { [unowned self]  () -> Void in
-//                let url = NSURL(string: imageURLEncoded)
-//                
-//                let downloadPhotoTask: NSURLSessionDownloadTask = NSURLSession.sharedSession().downloadTaskWithURL(url!, completionHandler: { [unowned self] (location, response, error) -> Void in
-//                    let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)
-//                    dispatch_async(dispatch_get_main_queue(),{
-//                        if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? MediaTableViewCell {
-//                            updateCell.thumbnailImageView.image = downloadedImage
-//                        }
-//                        //cell.thumbnailImageView.image = downloadedImage
-//                    })
-//                    
-//                    })
-//                downloadPhotoTask.resume()
-//            }
-            
             let url = NSURL(string: imageURLEncoded)
             cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
             
@@ -173,7 +149,6 @@ class LibraryTableViewController: UITableViewController {
     // returns nil if cell is not visible or index path is out of range
     func cellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell?  {
         if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? MediaTableViewCell {
-            //updateCell.thumbnailImageView.image = downloadedImage
             return updateCell
         }
         return nil
