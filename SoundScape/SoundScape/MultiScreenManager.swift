@@ -34,8 +34,6 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     var queueMedias = NSMutableOrderedSet()
     
     /// Application url
-    //var appURL: String =  "http://multiscreen.samsung.com/app-sample-photos/tv/index.html"
-    //var appURL: String =  "http://s3-us-west-1.amazonaws.com/dev-multiscreen-examples/examples/soundscape/tester/index.html"
     var appURL: String =  "http://s3-us-west-1.amazonaws.com/dev-multiscreen-examples/examples/soundscape/tv/index.html"
     /// Application Channel
     //var channelId: String = "com.samsung.multiscreen.photos"
@@ -150,27 +148,6 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     }
     
     
-    
-    /// Return all services availables but not currently connected
-    ///
-    /// :return: Array of Services
-    func servicesNotConnected() -> [Service]{
-        
-        var servicesArray = [Service]()
-        for (value) in services {
-            /// Check if the application is connected
-            if (isConnected == true){
-                /// if the application is connected ignore the current service
-                if (currentService.id != value.id){
-                    servicesArray.append(value)
-                }
-            } else{
-                servicesArray.append(value)
-            }
-        }
-        return servicesArray
-    }
-    
     /// Return all services availables but not currently connected
     ///
     /// :return: Array of Services
@@ -181,6 +158,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
             servicesArray.append(value)
         }
         return servicesArray
+        
     }
     
    

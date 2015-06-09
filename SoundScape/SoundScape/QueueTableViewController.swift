@@ -112,9 +112,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         self.queueTableView.allowsMultipleSelectionDuringEditing = false
         self.queueTableView.tableFooterView = UIView(frame: CGRectZero)
-        //self.queueTableView.tableHeaderView = UIView(frame: CGRectZero)
         
-        self.userColor = chooseUserColor()
+        self.userColor = "#EF6C00"
         
         setupUserColorView()
         setupView()
@@ -195,7 +194,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func addTrack(notification: NSNotification) {
-        //println(notification)
         let userInfo: [String:AnyObject] = notification.userInfo as! [String:AnyObject]
         let queueMediaInfos = userInfo["userInfo"] as! [MediaItem]
         
@@ -292,19 +290,11 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         var toolbarItems: [AnyObject]? = mediaActionToolbar.items
         
-        
         toolbarItems?[0] = button
         mediaActionToolbar.items = toolbarItems
         
     }
     
-    func chooseUserColor() -> String{
-        let colors = ["#EF6C00","#1A237E","#689F38","#E91E63","#2196F3","#B71C1C","#01579B","#009688","#673AB7","#607D8B","#880E4F","#3F51B5","#827717","#9C27B0","#3E2723","#E65100","#006064","#1B5E20","#4A148C","#795548"]
-        let colorIndex = Int(arc4random_uniform(20))
-        
-        let userColor: String = colors[colorIndex]
-        return userColor
-    }
     func setupUserColorView() {
         
         let colorString = self.userColor
@@ -322,8 +312,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         multiScreenManager.sendAppStateRequest()
         
         multiScreenManager.sendUserColorRequest()
-        
-        //mediaActionToolbar.hidden = true
         
         var button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action: "playPause")
         button.tintColor = UIColor.whiteColor()

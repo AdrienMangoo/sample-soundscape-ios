@@ -79,8 +79,6 @@ class DeviceDisconnectViewController: UIViewController, UIGestureRecognizerDeleg
         multiScreenManager.closeApplication({ (success: Bool!) -> Void in
             //
         })
-        //self.dismissViewControllerAnimated(true) { }
-        
     }
 
     /// UIGestureRecognizerDelegate used to disable the tap event if the tapped View is not the main View
@@ -94,11 +92,6 @@ class DeviceDisconnectViewController: UIViewController, UIGestureRecognizerDeleg
     
     /// Close the current View
     func closeView() {
-        if (multiScreenManager.isConnected){
-            //multiScreenManager.stopSearching()
-        }
-        
-        //self.removeFromSuperview()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

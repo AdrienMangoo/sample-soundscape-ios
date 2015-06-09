@@ -47,7 +47,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         /// Configuring the tableView separator style
         devicesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: devicesFoundCellID)
         
-        
         if devicesTableView.respondsToSelector("setSeparatorInset:") {
             devicesTableView.separatorInset = UIEdgeInsetsZero
         }

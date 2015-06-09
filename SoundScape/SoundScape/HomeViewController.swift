@@ -41,10 +41,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-        //btnAction.addTarget(self, action: Selector("showCastMenuView"), forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
         // Add an observer to check if a tv is connected
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "serviceConnected", name: multiScreenManager.serviceConnectedObserverIdentifier, object: nil)
         
@@ -61,15 +57,10 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         ssid = SSIdInfo.currentWifiSSID()
         reachabilityForWifi.startNotifier()
-        
-        //activitySearching.startAnimating()
     }
     
     override func viewWillAppear(animated: Bool) {
-        //activitySearching.startAnimating()
-        
         btnAction.hidden = true
-        lblDevices.text = " "
         multiScreenManager.startSearching()
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector:  Selector("searchTimerFired"), userInfo: nil, repeats: false)
@@ -96,7 +87,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     @IBAction func actionButtonPressed(sender: AnyObject) {
         if btnAction.titleLabel!.text == "Select" {
-            //showCastMenuView()
             showDevices()
         } else if btnAction.titleLabel!.text == "Connect" {
             if multiScreenManager.services.count >= 1 {
@@ -151,21 +141,19 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             mainViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
             presentViewController(mainViewController!, animated: true, completion: nil)
         }
-        //dismissQueueVC()
-        
     }
     
     func servicesChanged() {
         setupView()
-        /*
-        if (!multiScreenManager.isConnected) {
-            mainViewController?.dismissViewControllerAnimated(true, completion: nil)
-        }
-*/
     }
     
     func setupView() {
-        //activitySearching.stopAnimating()
+
+        if (multiScreenManager.isConnected) {
+            btnAction.hidden = true
+            lblDevices.text = ""
+            return
+        }
         ssid = SSIdInfo.currentWifiSSID()
         var ssidDisplay: String = String()
         
@@ -194,10 +182,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     func dismissQueueVC() {
-        /*
-        mainViewController?.dismissViewControllerAnimated(true, completion: nil)
-        mainViewController = nil
-*/
         self.dismissViewControllerAnimated(true, completion: nil)
         mainViewController = nil
     }
@@ -205,7 +189,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     func showDevices() {
         
         let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DevicesViewController") as! UIViewController
-        //popoverVC.modalPresentationStyle = .Popover
         
         popoverVC.modalTransitionStyle = .CrossDissolve
         popoverVC.view.backgroundColor = UIColor.clearColor()
@@ -223,14 +206,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         // Present it before configuring it
         presentViewController(popoverVC, animated: true, completion: nil)
         
-        
-        // Now the popoverPresentationController has been created
-        if let popoverController = popoverVC.popoverPresentationController {
-            //popoverController.sourceView = self.view
-            //popoverController.sourceRect = self.view.bounds
-            //popoverController.permittedArrowDirections = .Any
-            //popoverController.delegate = self
-        }
     }
     
     func reachabilityChanged(notification: NSNotification) {
