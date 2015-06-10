@@ -260,7 +260,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         if let currentStatusDict = (userInfo["userInfo"] as? [String:AnyObject]) {
             self.currentTrackId = currentStatusDict["id"] as! String
             self.currentTrackState = currentStatusDict["state"] as! String
-            
+            println(self.currentTrackState)
             setupToolbar()
         }
     }
