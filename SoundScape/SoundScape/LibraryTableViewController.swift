@@ -124,7 +124,7 @@ class LibraryTableViewController: UITableViewController {
         var imageURL: String? = (medias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         
         cell.titleLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).title
-        cell.albumNameLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).name
+        cell.artistLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).artist
         
         // Set tableView separator style
         tableView.separatorStyle  = UITableViewCellSeparatorStyle.SingleLine

@@ -140,7 +140,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         // Configure the cell...
         
         cell.titleLabel.text = (queueMedias[indexPath.row] as! MediaItem).title
-        cell.albumNameLabel.text = (queueMedias[indexPath.row] as! MediaItem).name
+        cell.artistLabel.text = (queueMedias[indexPath.row] as! MediaItem).artist
         
         var imageURL: String? = (queueMedias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         

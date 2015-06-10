@@ -30,7 +30,7 @@ class MediaTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var albumNameLabel: UILabel!
+    @IBOutlet weak var artistLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
