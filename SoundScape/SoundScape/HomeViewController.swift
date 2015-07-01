@@ -137,7 +137,6 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     func serviceConnected() {
         dismissQueueVC()
         if (mainViewController != nil) {
-            //mainViewController?.setupView()
             return
         } else {
             mainViewController = self.storyboard?.instantiateViewControllerWithIdentifier("QueueTableViewControllerID") as? QueueTableViewController

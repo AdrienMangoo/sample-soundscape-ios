@@ -125,7 +125,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let name = services[indexPath.row].displayName {
             cell.textLabel?.text = services[indexPath.row].displayName
-            //cell.textLabel?.attributedText = NSMutableAttributedString(string: "\(services[indexPath.row].name)", attributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 14.0)!])
         }
         
         var image : UIImage = UIImage(named: "ic_tv")!
@@ -140,8 +139,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
-        //connectingIndicator.hidden = false
-        //connectingIndicator.startAnimating()
         if (multiScreenManager.isConnected) {
             multiScreenManager.closeApplication({ (success: Bool!) -> Void in
                 //
@@ -162,15 +159,14 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         hud.show(true)
         hud.dimBackground = true
         
-        //title.text = "Connecting"
-        /// If cell is selected then connect and start the application
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        self.closeView()
+        
         multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { (success: Bool!) -> Void in
+            
             hud.hide(true)
+            self.closeView()
+            
             if ((success) == false){
-                //self.displayAlertWithTitle("", message: "Connection could not be established")
-                //self.closeView()
                 var  alertView:UIAlertView = UIAlertView(title: "" as String, message: "Connection could not be established" as String, delegate: self, cancelButtonTitle: "OK")
                 alertView.alertViewStyle = .Default
                 alertView.show()
@@ -215,12 +211,5 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
             return true
         }
         return false
-    }
-    
-    /// Displays an Alert dialog
-    func displayAlertWithTitle( title: NSString, message: NSString) {
-        var  alertView:UIAlertView = UIAlertView(title: title as String, message: message as String, delegate: self, cancelButtonTitle: "OK")
-        alertView.alertViewStyle = .Default
-        alertView.show()
     }
 }
