@@ -96,7 +96,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" id="zQa-cb-Kfn">
-                                <rect key="frame" x="0.0" y="149" width="320" height="375"/>
+                                <rect key="frame" x="0.0" y="149" width="320" height="332"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -183,7 +183,7 @@
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wVW-FW-hBe">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="481" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem systemItem="pause" id="r4O-wu-mzR">
@@ -221,7 +221,44 @@
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3ly-CK-Z56">
+                                <rect key="frame" x="0.0" y="525" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" id="o4Z-tY-9BV">
+                                        <view key="customView" contentMode="scaleToFill" id="hqV-CD-iio">
+                                            <rect key="frame" x="16" y="6" width="290" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7f4-E9-KZI">
+                                                    <rect key="frame" x="1" y="6" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ImX-Mr-HEM">
+                                                    <rect key="frame" x="246" y="6" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="e7w-c9-ZyD">
+                                                    <rect key="frame" x="43" y="1" width="200" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="trackSliderValueChanged:" destination="Tji-q5-vNm" eventType="valueChanged" id="OWV-Yg-YfS"/>
+                                                    </connections>
+                                                </slider>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -232,9 +269,13 @@
                         <outlet property="currentTrackNameLabel" destination="40c-QD-tTB" id="Cbo-eL-iJN"/>
                         <outlet property="currentTrackTitleLabel" destination="Yge-ra-JVZ" id="Myd-3h-VBe"/>
                         <outlet property="mediaActionToolbar" destination="wVW-FW-hBe" id="Ue4-qo-VJB"/>
+                        <outlet property="mediaSliderToolbar" destination="3ly-CK-Z56" id="1jr-Ek-rmG"/>
                         <outlet property="nextTrackBarButton" destination="cJw-iR-8qQ" id="Nio-e5-BP1"/>
                         <outlet property="playPauseBarButton" destination="r4O-wu-mzR" id="MJ5-11-dht"/>
                         <outlet property="queueTableView" destination="zQa-cb-Kfn" id="aqc-Sx-kqS"/>
+                        <outlet property="trackDurationLabel" destination="ImX-Mr-HEM" id="hJb-Ce-FYZ"/>
+                        <outlet property="trackPositionLabel" destination="7f4-E9-KZI" id="ilb-0J-keS"/>
+                        <outlet property="trackSlider" destination="e7w-c9-ZyD" id="kQG-rn-Y0E"/>
                         <outlet property="userColorImageView" destination="tED-y3-GmD" id="YCW-LB-gza"/>
                         <outlet property="view" destination="UFq-kI-2Ja" id="AbI-k8-KYN"/>
                     </connections>

@@ -106,10 +106,16 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 hud.show(true)
                 hud.dimBackground = true
                 
-                multiScreenManager.createApplication(multiScreenManager.services[0], completionHandler: { [unowned self](success: Bool!) -> Void in
+                multiScreenManager.createApplication(multiScreenManager.services[0], completionHandler: { [unowned self](success: Bool!, error: NSError?) -> Void in
                     hud.hide(true)
                     if ((success) == false){
-                        var  alertView:UIAlertView = UIAlertView(title:"", message: "Connection could not be established", delegate: self, cancelButtonTitle: "OK")
+                        var errorMsg: String? = String()
+                        if error != nil {
+                            errorMsg = error!.localizedDescription
+                        } else {
+                            errorMsg = "Connection could not be established"
+                        }
+                        var  alertView:UIAlertView = UIAlertView(title:"", message: errorMsg, delegate: self, cancelButtonTitle: "OK")
                         alertView.alertViewStyle = .Default
                         alertView.show()
                     } else {

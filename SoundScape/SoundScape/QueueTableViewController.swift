@@ -33,8 +33,11 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     
     var currentTrackId = String()
     var currentTrackState = String("unknown")
+    var currentTime = NSNumber()
     
     var userColor = String()
+    
+    var sliderColor = String("#E91E63")
     
     var disconnectPopoverController: UIPopoverController? = nil
     /// UITableView to diplay the services
@@ -50,13 +53,19 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
     
     @IBOutlet weak var playPauseBarButton: UIBarButtonItem!
     
+    @IBOutlet weak var mediaSliderToolbar: UIToolbar!
     @IBOutlet weak var nextTrackBarButton: UIBarButtonItem!
     
+    @IBOutlet weak var trackDurationLabel: UILabel!
+    @IBOutlet weak var trackPositionLabel: UILabel!
     @IBOutlet weak var currentTrackTitleLabel: UILabel!
     
+    @IBOutlet weak var trackSlider: UISlider!
     @IBOutlet weak var currentTrackNameLabel: UILabel!
     
+    
     @IBAction func castButtonPressed(sender: AnyObject) {
+        
         
         showDisconnectPopover(sender)
     }
@@ -68,6 +77,9 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             self.queueMedias.removeObjectAtIndex(0)
             self.queueTableView.reloadData()
         }
+    }
+    @IBAction func trackSliderValueChanged(sender: AnyObject) {
+        multiScreenManager.sendSeek(Int(trackSlider.value))
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +121,15 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         setupUserColorView()
         setupView()
         
+        let thumbImage = UIImage(named: "sliderhandle")?.resizableImageWithCapInsets(UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0))
+        
+        UISlider.appearance().setThumbImage(thumbImage, forState: UIControlState.Normal)
+        
+        trackSlider.addTarget(self, action: Selector("slidingStopped"), forControlEvents: UIControlEvents.TouchUpInside)
+        trackSlider.addTarget(self, action: Selector("slidingStopped"), forControlEvents: UIControlEvents.TouchUpOutside)
+        trackSlider.addTarget(self, action: Selector("slidingStarted"), forControlEvents: UIControlEvents.TouchDragInside)
+        
+        //trackSlider.tintColor = UIColor.blueColor()
     }
 
     override func didReceiveMemoryWarning() {
@@ -180,8 +201,11 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         if (self.queueMedias.count > 0) {
             mediaActionToolbar.hidden = false
+            mediaSliderToolbar.hidden = false
+            
         } else {
             mediaActionToolbar.hidden = true
+            mediaSliderToolbar.hidden = true
         }
     }
     
@@ -197,8 +221,10 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         if (self.queueMedias.count > 0) {
             mediaActionToolbar.hidden = false
+            mediaSliderToolbar.hidden = false
         } else {
             mediaActionToolbar.hidden = true
+            mediaSliderToolbar.hidden = true
         }
     }
     /// removes track
@@ -260,7 +286,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         if let currentStatusDict = (userInfo["userInfo"] as? [String:AnyObject]) {
             self.currentTrackId = currentStatusDict["id"] as! String
             self.currentTrackState = currentStatusDict["state"] as! String
-            println(self.currentTrackState)
+            self.currentTime = currentStatusDict["time"] as! NSNumber
+            println(currentStatusDict)
             setupToolbar()
         }
     }
@@ -270,11 +297,34 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         for elem in self.queueMedias {
             let queueMediaItem = elem as! MediaItem
             if (queueMediaItem.id == currentTrackId) {
+                println(queueMediaItem)
                 self.currentTrackTitleLabel.text = queueMediaItem.title
                 self.currentTrackNameLabel.text = queueMediaItem.name
+
+                self.trackSlider.maximumValue = Float(queueMediaItem.duration!)
+                self.trackSlider.minimumValue = 0.0
+                
+                let (h,m,s) = secondsToHoursMinutesSeconds(queueMediaItem.duration!)
+                
+                self.trackDurationLabel.text = String(format: "%02d:%02d:%02d", h,m,s)
+                
+                
                 break
             }
         }
+        
+        let fTime = Float(currentTime)
+        if !multiScreenManager.sliding {
+            trackSlider.setValue(fTime, animated: true)
+            let (h,m,s) = secondsToHoursMinutesSeconds(Int(fTime))
+            
+            self.trackPositionLabel.text = String(format: "%02d:%02d:%02d", h,m,s)
+            println("setvalue \(fTime)")
+        }
+        else {
+            println("sliding, so no setvalue")
+        }
+        
         var button: UIBarButtonItem = UIBarButtonItem()
         if self.currentTrackState == "playing" {
             button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action: "playPause")
@@ -351,6 +401,18 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
+    func slidingStarted() {
+        multiScreenManager.sliding = true
+    }
     
+    func slidingStopped() {
+        multiScreenManager.sliding = false
+        currentTime = trackSlider.value
+        setupToolbar()
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
     
 }

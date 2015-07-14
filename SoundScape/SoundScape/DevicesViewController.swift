@@ -161,13 +161,19 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
-        multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { (success: Bool!) -> Void in
+        multiScreenManager.createApplication(services[indexPath.row] as! Service, completionHandler: { (success: Bool!, error: NSError?) -> Void in
             
             hud.hide(true)
             self.closeView()
             
             if ((success) == false){
-                var  alertView:UIAlertView = UIAlertView(title: "" as String, message: "Connection could not be established" as String, delegate: self, cancelButtonTitle: "OK")
+                var errorMsg: String? = String()
+                if error != nil {
+                    errorMsg = error!.localizedDescription
+                } else {
+                    errorMsg = "Connection could not be established"
+                }
+                var  alertView:UIAlertView = UIAlertView(title: "" as String, message: errorMsg, delegate: self, cancelButtonTitle: "OK")
                 alertView.alertViewStyle = .Default
                 alertView.show()
             } else {

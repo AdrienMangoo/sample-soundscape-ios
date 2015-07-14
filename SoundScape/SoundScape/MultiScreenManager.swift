@@ -73,6 +73,8 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     var services = [Service]()
     
 
+    var sliding: Bool = false
+    
     /// returns the status if the channel/app is connected
     var isConnected: Bool {
         get {
@@ -164,15 +166,15 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     ///
     /// :param: selected service
     /// :param: completionHandler The callback handler,  return true or false
-    func createApplication(service: Service, completionHandler: ((Bool!) -> Void)!){
+    func createApplication(service: Service, completionHandler: ((Bool!, error: NSError?) -> Void)!){
         app = service.createApplication(NSURL(string: appURL)!, channelURI: channelId, args: ["cmd line params": "cmd line values"])
         app.delegate = self
         app.connectionTimeout = 5
         app.connect(["name": UIDevice.currentDevice().name], completionHandler: { (client, error) -> Void in
             if (error == nil){
-                completionHandler(true)
+                completionHandler(true,error: error)
             } else {
-                completionHandler(false)
+                completionHandler(false,error: error)
             }
         })
     }
@@ -244,6 +246,12 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         }
     }
     
+    func sendSeek(time: Int) {
+        if isConnected {
+            app.publish(event: "seek", message: time, target: MessageTarget.Broadcast.rawValue)
+        }
+    }
+    
     /// Send RemoveTrack event to the the connected Service
     ///
     func sendRemoveTrack(var mediaItem: MediaItem) {
@@ -312,7 +320,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
             }
         } else if message.event == "trackStatus" {
             if let currentStatusDict = message.data as? [String:AnyObject] {
-                if currentStatusDict.count > 0 {
+                if currentStatusDict.count > 0 && sliding != true {
                     NSNotificationCenter.defaultCenter().postNotificationName(currentTrackStatusObserverIdentifier, object: self, userInfo: ["userInfo" : currentStatusDict])
                 }
             }
