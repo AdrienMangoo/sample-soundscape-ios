@@ -57,18 +57,28 @@ class LibraryTableViewController: UITableViewController {
                     if httpResp.statusCode == 200 {
                         
                         var serializationError: NSError?
-                        let mediaData: [Dictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [[String:AnyObject]]
                         
-                        if (serializationError == nil) {
-                            let mediaInfos = mediaData.map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: ($0["albumArtThumbnail"] as? String)!, id: self.generateTrackId(), duration: ($0["duration"] as? Int)!, color:self.userColor!)}
-                            
-                            self.medias.addObjectsFromArray(mediaInfos)
-                            
+                        let mediaData: [NSDictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [NSDictionary]
+                        
+                        if serializationError != nil {
+                            for item in mediaData {
+                                let artist = item["artist"] as? NSString
+                                var albumArt = item["albumArt"] as? NSString
+                                if albumArt == nil {
+                                    albumArt = ""
+                                }
+                                var thumbnailURL = item["albumArtThumbnail"] as? String
+                                if thumbnailURL == nil {
+                                    thumbnailURL = ""
+                                }
+                                let mediaItem = MediaItem(artist: item["artist"] as? String, name: item["album"] as? String, title: item["title"] as? String, fileURL: item["file"] as? String, albumArtURL: albumArt as String?, thumbnailURL: thumbnailURL, id: self.generateTrackId(), duration: item["duration"] as? Int, color: self.userColor!)
+                                self.medias.addObject(mediaItem)
+                            }
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.tableView.reloadData()
                             })
-                            
                         }
+                        
                     }
                 }
             })
@@ -123,6 +133,7 @@ class LibraryTableViewController: UITableViewController {
         
         var imageURL: String? = (medias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         
+        
         cell.titleLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).title
         cell.artistLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).artist
         
@@ -135,13 +146,16 @@ class LibraryTableViewController: UITableViewController {
             cell.layoutMargins = UIEdgeInsetsZero
         }
         cell.thumbnailImageView.image = UIImage(named: "album_placeholder")
-        if let imageURLEncoded = imageURL!.URLEncodedString() {
-            
-            let url = NSURL(string: imageURLEncoded)
-            cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
-            
-            
+        if imageURL != nil {
+            if let imageURLEncoded = imageURL!.URLEncodedString() {
+                
+                let url = NSURL(string: imageURLEncoded)
+                cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
+                
+                
+            }
         }
+        
         return cell
     }
     

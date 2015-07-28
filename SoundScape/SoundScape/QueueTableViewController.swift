@@ -166,10 +166,13 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         var imageURL: String? = (queueMedias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         
         let userColor = (queueMedias[indexPath.row] as! MediaItem).color
-        if let imageURLEncoded = imageURL!.URLEncodedString() {
-            let url = NSURL(string: imageURLEncoded)
-            cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
+        if imageURL != nil {
+            if let imageURLEncoded = imageURL!.URLEncodedString() {
+                let url = NSURL(string: imageURLEncoded)
+                cell.thumbnailImageView.setImageWithUrl(url!, placeHolderImage: UIImage(named: "album_placeholder"))
+            }
         }
+        
         cell.userColorImageView.image = UIImage.imageWithStringColor(userColor!)
         
         return cell
