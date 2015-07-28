@@ -259,5 +259,69 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SoundScape/LibraryTableViewController.swift"
+            timestampString = "459738030.791347"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SoundScape.LibraryTableViewController.(viewDidLoad (SoundScape.LibraryTableViewController) -&gt; () -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "SoundScape"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/p.thurgam/Documents/Samsung/projects/github/sample-soundscape-ios/SoundScape/SoundScape/LibraryTableViewController.swift"
+                  timestampString = "459738036.197555"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1020">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SoundScape.LibraryTableViewController.(viewDidLoad (SoundScape.LibraryTableViewController) -&gt; () -&gt; ()).(closure #1).(closure #1).(closure #1)"
+                  moduleName = "SoundScape"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/p.thurgam/Documents/Samsung/projects/github/sample-soundscape-ios/SoundScape/SoundScape/LibraryTableViewController.swift"
+                  timestampString = "459738036.19779"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SoundScape/LibraryTableViewController.swift"
+            timestampString = "459738343.806039"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
