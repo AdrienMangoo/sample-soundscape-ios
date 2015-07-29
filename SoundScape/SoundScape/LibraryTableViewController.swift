@@ -60,7 +60,7 @@ class LibraryTableViewController: UITableViewController {
                         
                         let mediaData: [NSDictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [NSDictionary]
                         
-                        if serializationError != nil {
+                        if serializationError == nil {
                             for item in mediaData {
                                 let artist = item["artist"] as? NSString
                                 var albumArt = item["albumArt"] as? NSString
