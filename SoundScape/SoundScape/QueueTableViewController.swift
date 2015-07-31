@@ -79,7 +79,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     @IBAction func trackSliderValueChanged(sender: AnyObject) {
-        multiScreenManager.sendSeek(Int(trackSlider.value))
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -412,6 +412,8 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         multiScreenManager.sliding = false
         currentTime = trackSlider.value
         setupToolbar()
+        
+        multiScreenManager.sendSeek(Int(trackSlider.value))
     }
     
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
