@@ -90,7 +90,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        println(services.count)
         return services.count;
     }
     
@@ -128,7 +127,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         var image : UIImage = UIImage(named: "ic_tv")!
-        println("The loaded image: \(image)")
         cell.imageView!.image = multiScreenManager.isSpeaker(services[indexPath.row] as! Service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
         cell.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)

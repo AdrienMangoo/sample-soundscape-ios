@@ -204,7 +204,6 @@ class LibraryTableViewController: UITableViewController {
     func generateTrackId() -> String {
         var k: Int = randomInt(1000000, max: 99999999)
         var s = String(k)
-        println(s)
         return s
     }
 

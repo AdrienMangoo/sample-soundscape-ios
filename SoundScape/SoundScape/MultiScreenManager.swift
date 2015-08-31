@@ -304,10 +304,8 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
                 let queueMediaInfos =  (dict["playlist"]! as! [NSDictionary]).map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as! String, id: $0["id"] as! String, duration: $0["duration"] as! Int, color: $0["color"] as! String)}
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(refreshQueueObserverIdentifier, object: self, userInfo: ["userInfo" : queueMediaInfos])
-                println(message.data)
                 if let currentStatusDict = dict["currentStatus"] as? [String: AnyObject] {
                     if currentStatusDict.count > 0 {
-                        println(currentStatusDict)
                         NSNotificationCenter.defaultCenter().postNotificationName(currentTrackStatusObserverIdentifier, object: self, userInfo: ["userInfo" : currentStatusDict])
                     }
                 }

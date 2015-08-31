@@ -290,7 +290,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             self.currentTrackId = currentStatusDict["id"] as! String
             self.currentTrackState = currentStatusDict["state"] as! String
             self.currentTime = currentStatusDict["time"] as! NSNumber
-            println(currentStatusDict)
+
             setupToolbar()
         }
     }
@@ -300,7 +300,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         for elem in self.queueMedias {
             let queueMediaItem = elem as! MediaItem
             if (queueMediaItem.id == currentTrackId) {
-                println(queueMediaItem)
                 self.currentTrackTitleLabel.text = queueMediaItem.title
                 self.currentTrackNameLabel.text = queueMediaItem.name
 
@@ -322,7 +321,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             let (h,m,s) = secondsToHoursMinutesSeconds(Int(fTime))
             
             self.trackPositionLabel.text = String(format: "%02d:%02d:%02d", h,m,s)
-            println("setvalue \(fTime)")
         }
         else {
             println("sliding, so no setvalue")
