@@ -56,9 +56,9 @@ class LibraryTableViewController: UITableViewController {
                     let httpResp = response as! NSHTTPURLResponse
                     if httpResp.statusCode == 200 {
                         
-                        var serializationError: NSError?
+                        let serializationError: NSError? = nil
                         
-                        let mediaData: [NSDictionary] = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &serializationError) as! [NSDictionary]
+                        let mediaData: [NSDictionary] = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as! [NSDictionary]
                         
                         if serializationError == nil {
                             for item in mediaData {
@@ -131,7 +131,7 @@ class LibraryTableViewController: UITableViewController {
         // Configure the cell...
         
         
-        var imageURL: String? = (medias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
+        let imageURL: String? = (medias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         
         
         cell.titleLabel.text = (medias.objectAtIndex(indexPath.row) as! MediaItem).title
@@ -173,7 +173,7 @@ class LibraryTableViewController: UITableViewController {
         
         var text: String = String("added to playlist")
 
-        var hud = MBProgressHUD(view: self.view)
+        let hud = MBProgressHUD(view: self.view)
         let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
         let someFloat: Float = Float(cgFloat)
         hud.yOffset = someFloat
@@ -202,8 +202,8 @@ class LibraryTableViewController: UITableViewController {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
     func generateTrackId() -> String {
-        var k: Int = randomInt(1000000, max: 99999999)
-        var s = String(k)
+        let k: Int = randomInt(1000000, max: 99999999)
+        let s = String(k)
         return s
     }
 

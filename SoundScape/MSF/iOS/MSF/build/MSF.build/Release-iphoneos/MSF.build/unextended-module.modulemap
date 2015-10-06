@@ -1,0 +1,6 @@
+framework module MSF {
+  umbrella header "MSF.h"
+
+  export *
+  module * { export * }
+}

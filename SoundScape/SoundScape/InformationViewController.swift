@@ -33,7 +33,7 @@ class InformationViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let localfilePath = NSBundle.mainBundle().URLForResource("Information", withExtension: "html");
-        let html = NSString(contentsOfURL: localfilePath!, encoding: NSUTF8StringEncoding, error: nil)
+        let html = try? NSString(contentsOfURL: localfilePath!, encoding: NSUTF8StringEncoding)
     
         var ssid: String? = String(SSIdInfo.currentWifiSSID())
         var ssidDisplay: String = String()
@@ -45,7 +45,7 @@ class InformationViewController: UIViewController {
         }
         
         let htmlString = html?.stringByReplacingOccurrencesOfString("%%SSID%%", withString: ssidDisplay) as String?
-        informationWebView.loadHTMLString(htmlString, baseURL: nil)
+        informationWebView.loadHTMLString(htmlString!, baseURL: nil)
     }
 
     @IBAction func dismissInformationVC(sender: AnyObject) {

@@ -44,9 +44,9 @@ import XCPlayground
 //        app = service.createApplication(NSURL(string: appURL)!, channelURI: channelURI )
 //        app.connect(["name":UIDevice.currentDevice().name]) { [unowned self ] (channel: Channel, error: NSError?) in
 //            if error != nil {
-//                println(error?.localizedDescription)
+//                print(error?.localizedDescription)
 //            } else {
-//                println("TV App is Ready")
+//                print("TV App is Ready")
 //                self.app.publish(event: "say", message: "Hello TV...")
 //            }
 //        }
@@ -55,7 +55,7 @@ import XCPlayground
 //    //MARK: --  ServiceSearchDelegate --
 //
 //    func onServiceFound(service: MSF.Service) {
-//        println(service.name)
+//        print(service.name)
 //        //Select the first found service
 //        if self.service == nil && service.name == "aljopBox" {
 //            self.service = service
@@ -82,13 +82,13 @@ class HelloWorld: ServiceSearchDelegate {
     func selecService(service: Service) {
         app = service.createApplication(appId, channelURI: channelURI, args: nil )
 //        app.install { (success, error) -> Void in
-//            println(error)
+//            print(error)
 //        } 
-        app.connect(["name":UIDevice.currentDevice().name]) { [unowned self ] (channel: Channel, error: NSError?) in
+        app .connect(["name":UIDevice.currentDevice().name]) { [unowned self ] (channel: Channel, error: NSError?) in
             if error != nil {
-                println(error?.localizedDescription)
+                print(error?.localizedDescription)
             } else {
-                println("TV App is Ready")
+                print("TV App is Ready")
                 self.app.publish(event: "say", message: "Hello TV...")
             }
         }
@@ -96,7 +96,7 @@ class HelloWorld: ServiceSearchDelegate {
 
     //MARK: --  ServiceSearchDelegate --
 
-    func onServiceFound(service: MSF.Service) {
+    @objc func onServiceFound(service: MSF.Service) {
 
         //Select the first found service
         if self.service == nil && service.name == "aljopBox" {
@@ -104,7 +104,7 @@ class HelloWorld: ServiceSearchDelegate {
             //search.stop()
             self.selecService(self.service!)
         } else {
-            println("ignoring \(service.name)")
+            print("ignoring \(service.name)")
         }
     }
     
@@ -112,4 +112,4 @@ class HelloWorld: ServiceSearchDelegate {
 
 let helloWorld = HelloWorld()
 
-XCPSetExecutionShouldContinueIndefinitely(continueIndefinitely: true)
+XCPSetExecutionShouldContinueIndefinitely(true)

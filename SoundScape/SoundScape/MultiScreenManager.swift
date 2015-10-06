@@ -141,7 +141,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     }
     
     func removeObject<T: Equatable>(inout arr: Array<T>, object: T) -> T? {
-        if let found = find(arr, object) {
+        if let found = arr.indexOf(object) {
             return arr.removeAtIndex(found)
         }
         return nil
@@ -164,12 +164,13 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
    
     /// Connect to an Application
     ///
-    /// :param: selected service
-    /// :param: completionHandler The callback handler,  return true or false
+    /// - parameter selected: service
+    /// - parameter completionHandler: The callback handler,  return true or false
     func createApplication(service: Service, completionHandler: ((Bool!, error: NSError?) -> Void)!){
         app = service.createApplication(NSURL(string: appURL)!, channelURI: channelId, args: ["cmd line params": "cmd line values"])
         app.delegate = self
         app.connectionTimeout = 5
+        
         app.connect(["name": UIDevice.currentDevice().name], completionHandler: { (client, error) -> Void in
             if (error == nil){
                 completionHandler(true,error: error)
@@ -181,7 +182,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     /// Close the current connected application
     ///
-    /// :param: completionHandler The callback handler,  return true or false
+    /// - parameter completionHandler: The callback handler,  return true or false
     func closeApplication(completionHandler: ((Bool!) -> Void)!){
         app.disconnect(leaveHostRunning: true, completionHandler: { (channel, error) -> Void in
             if (error == nil){
@@ -210,7 +211,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     /// Send AddTrack event to the the connected Service
     ///
-    /// :param: MediaItem to be sent
+    /// - parameter MediaItem: to be sent
     func sendAddTrack(var mediaItem: MediaItem){
         if (isConnected) {
             var addTrackDict: NSDictionary =
@@ -231,7 +232,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     /// Send PlayPause event to the the connected Service
     ///
-    /// :param: true - play, false - pause
+    /// - parameter true: - play, false - pause
     func sendPlayPause(play: Bool) {
         if isConnected {
             app.publish(event: play ? "play":"pause", message: nil, target: MessageTarget.Broadcast.rawValue)
@@ -265,16 +266,16 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     ///  Called when a Channel Error is fired
     ///
-    ///  :param: error: The error
+    ///  - parameter error:: The error
     func onError(error: NSError) {
-        println(error.localizedDescription)
+        print(error.localizedDescription)
     }
     
     ///  Called when the Channel is connected
     ///
-    ///  :param: client: The Client that just connected to the Channel
+    ///  - parameter client:: The Client that just connected to the Channel
     ///
-    ///  :param: error: An error info if any
+    ///  - parameter error:: An error info if any
     func onConnect(client: ChannelClient?, error: NSError?) {
         if (error == nil) {
             stopSearching()
@@ -285,9 +286,9 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     ///  Called when the Channel is disconnected
     ///
-    ///  :param: client The Client that just disconnected from the Channel
+    ///  - parameter client: The Client that just disconnected from the Channel
     ///
-    ///  :param: error: An error info if any
+    ///  - parameter error:: An error info if any
     func onDisconnect(client: ChannelClient?, error: NSError?) {
         startSearching()
         NSNotificationCenter.defaultCenter().postNotificationName(dismissQueueVCObserverIdentifier, object: self)
@@ -296,7 +297,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     ///  ChannelDelegate
     ///  Called when the Channel receives a text message
     ///
-    ///  :param: message: Text message received
+    ///  - parameter message:: Text message received
     func onMessage(message: Message) {
         
         if message.event == "appState" {

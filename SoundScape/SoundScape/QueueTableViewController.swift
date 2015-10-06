@@ -163,7 +163,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         cell.titleLabel.text = (queueMedias[indexPath.row] as! MediaItem).title
         cell.artistLabel.text = (queueMedias[indexPath.row] as! MediaItem).artist
         
-        var imageURL: String? = (queueMedias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
+        let imageURL: String? = (queueMedias.objectAtIndex(indexPath.row) as! MediaItem).thumbnailURL
         
         let userColor = (queueMedias[indexPath.row] as! MediaItem).color
         if imageURL != nil {
@@ -323,7 +323,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             self.trackPositionLabel.text = String(format: "%02d:%02d:%02d", h,m,s)
         }
         else {
-            println("sliding, so no setvalue")
+            print("sliding, so no setvalue")
         }
         
         var button: UIBarButtonItem = UIBarButtonItem()
@@ -337,7 +337,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         var toolbarItems: [AnyObject]? = mediaActionToolbar.items
         
         toolbarItems?[0] = button
-        mediaActionToolbar.items = toolbarItems
+        mediaActionToolbar.items = toolbarItems as! [UIBarButtonItem]?
     }
     
     func setupUserColorView() {
@@ -365,7 +365,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         toolbarItems?[0] = button
-        mediaActionToolbar.items = toolbarItems
+        mediaActionToolbar.items = toolbarItems as! [UIBarButtonItem]?
         
         currentTrackNameLabel.text = "name"
         currentTrackTitleLabel.text = "title"
@@ -391,7 +391,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         let beView: UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
         beView.tag = 1
         beView.frame = self.view.bounds;
-        beView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        beView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
         popoverVC.view.frame = self.view.bounds
         

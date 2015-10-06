@@ -124,7 +124,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     })
             }
         } else if btnAction.titleLabel!.text == "Information" {
-            let informationNavigationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("InformationNavigationController") as? UIViewController
+            let informationNavigationViewController = self.storyboard?.instantiateViewControllerWithIdentifier("InformationNavigationController")
             informationNavigationViewController!.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
             presentViewController(informationNavigationViewController!, animated: true, completion: nil)
    
@@ -174,7 +174,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
             ssidDisplay = "your network"
         }
         
-        if self.reachabilityForWifi.currentReachabilityStatus().value != ReachableViaWiFi.value {
+        if self.reachabilityForWifi.currentReachabilityStatus().rawValue != ReachableViaWiFi.rawValue {
             lblDevices.text = "WiFi is not connected"
             btnAction.setTitle("Settings", forState: UIControlState.Normal)
         } else if (multiScreenManager.services.count == 1 ) {
@@ -202,7 +202,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     ///
     func showDevices() {
         
-        let popoverVC = storyboard?.instantiateViewControllerWithIdentifier("DevicesViewController") as! UIViewController
+        let popoverVC: UIViewController = (storyboard?.instantiateViewControllerWithIdentifier("DevicesViewController"))!
         
         popoverVC.modalTransitionStyle = .CrossDissolve
         popoverVC.view.backgroundColor = UIColor.clearColor()
@@ -213,7 +213,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         let beView: UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
         beView.tag = 1
         beView.frame = self.view.bounds;
-        beView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        beView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         popoverVC.view.frame = self.view.bounds
         popoverVC.view.insertSubview(beView, atIndex: 0)
         popoverVC.view.tag = 1

@@ -97,7 +97,7 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         /// Setting the custom cell view
         var cell: UITableViewCell
-        cell = tableView.dequeueReusableCellWithIdentifier(devicesFoundCellID, forIndexPath: indexPath) as! UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier(devicesFoundCellID, forIndexPath: indexPath) 
         
         
         // Set tableView separator style
@@ -112,7 +112,7 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         /// Adding color to the cell on click
-        var selectedView = UIView(frame: cell.frame)
+        let selectedView = UIView(frame: cell.frame)
         selectedView.backgroundColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
         cell.selectedBackgroundView = selectedView
         cell.selectionStyle = UITableViewCellSelectionStyle.Default
@@ -210,8 +210,8 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /// UIGestureRecognizerDelegate used to disable the tap event if the tapped View is not the main View
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
-        println(touch.view.tag)
-        if (touch.view.tag == 1){
+        print(touch.view!.tag)
+        if (touch.view!.tag == 1){
             return true
         }
         return false

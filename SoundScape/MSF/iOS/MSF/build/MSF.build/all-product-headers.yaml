@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/aljop/Developer/Samsung/github/MultiScreenSDK-Swift-API/iOS/MSF/build/Release-iphoneos/MSF.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "MSF-Swift.h",
+          'external-contents': "/Users/aljop/Developer/Samsung/github/MultiScreenSDK-Swift-API/iOS/MSF/build/Release-iphoneos/MSF.framework/Headers/MSF-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "MSF.h",
+          'external-contents': "/Users/aljop/Developer/Samsung/github/MultiScreenSDK-Swift-API/iOS/MSF/MSF/MSF.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/aljop/Developer/Samsung/github/MultiScreenSDK-Swift-API/iOS/MSF/build/Release-iphoneos/MSF.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/aljop/Developer/Samsung/github/MultiScreenSDK-Swift-API/iOS/MSF/build/Release-iphoneos/MSF.framework/Modules/module.modulemap"
+        }
+      ]
+    }
+  ]
+}
