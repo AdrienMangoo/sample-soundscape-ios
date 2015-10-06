@@ -212,9 +212,9 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     /// Send AddTrack event to the the connected Service
     ///
     /// - parameter MediaItem: to be sent
-    func sendAddTrack(var mediaItem: MediaItem){
+    func sendAddTrack(mediaItem: MediaItem){
         if (isConnected) {
-            var addTrackDict: NSDictionary =
+            let addTrackDict: NSDictionary =
             [
                 "id":mediaItem.id!,
                 "artist":mediaItem.artist!,
@@ -255,7 +255,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     
     /// Send RemoveTrack event to the the connected Service
     ///
-    func sendRemoveTrack(var mediaItem: MediaItem) {
+    func sendRemoveTrack(mediaItem: MediaItem) {
         if isConnected {
             app.publish(event: "removeTrack", message: mediaItem.id, target: MessageTarget.Broadcast.rawValue)
         }
@@ -302,7 +302,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
         
         if message.event == "appState" {
             if let dict = message.data as? [String: AnyObject] {
-                let queueMediaInfos =  (dict["playlist"]! as! [NSDictionary]).map {MediaItem(artist: $0["artist"] as! String, name: $0["album"] as! String, title: $0["title"] as! String, fileURL: $0["file"] as! String, albumArtURL: $0["albumArt"] as! String, thumbnailURL: $0["albumArtThumbnail"] as! String, id: $0["id"] as! String, duration: $0["duration"] as! Int, color: $0["color"] as! String)}
+                let queueMediaInfos =  (dict["playlist"]! as! [NSDictionary]).map {MediaItem(artist: $0["artist"] as? String, name: $0["album"] as? String, title: $0["title"] as? String, fileURL: $0["file"] as? String, albumArtURL: $0["albumArt"] as? String, thumbnailURL: $0["albumArtThumbnail"] as? String, id: $0["id"] as? String, duration: $0["duration"] as? Int, color: $0["color"] as? String)}
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(refreshQueueObserverIdentifier, object: self, userInfo: ["userInfo" : queueMediaInfos])
                 if let currentStatusDict = dict["currentStatus"] as? [String: AnyObject] {

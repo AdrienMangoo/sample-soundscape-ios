@@ -122,11 +122,10 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.textLabel?.textAlignment = .Left
         cell.textLabel?.frame.origin.x = -20
         
-        if let name = services[indexPath.row].displayName {
+        if let _ = services[indexPath.row].displayName {
             cell.textLabel?.text = services[indexPath.row].displayName
         }
         
-        var image : UIImage = UIImage(named: "ic_tv")!
         cell.imageView!.image = multiScreenManager.isSpeaker(services[indexPath.row] as! Service) ? UIImage(named: "ic_speaker")! : UIImage(named: "ic_tv")!
         
         cell.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
@@ -143,9 +142,8 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
         }
         
-        var text: String = String("connecting to ")
         
-        var hud = MBProgressHUD(view: self.view)
+        let hud = MBProgressHUD(view: self.view)
         let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
         let someFloat: Float = Float(cgFloat)
         hud.yOffset = someFloat
@@ -171,7 +169,7 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     errorMsg = "Connection could not be established"
                 }
-                var  alertView:UIAlertView = UIAlertView(title: "" as String, message: errorMsg, delegate: self, cancelButtonTitle: "OK")
+                let alertView:UIAlertView = UIAlertView(title: "" as String, message: errorMsg, delegate: self, cancelButtonTitle: "OK")
                 alertView.alertViewStyle = .Default
                 alertView.show()
             } else {

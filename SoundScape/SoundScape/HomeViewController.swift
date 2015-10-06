@@ -64,7 +64,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         self.lblDevices.text = "Searching for devices...."
         multiScreenManager.startSearching()
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector:  Selector("searchTimerFired"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector:  Selector("searchTimerFired"), userInfo: nil, repeats: false)
         
     }
     
@@ -92,9 +92,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         } else if btnAction.titleLabel!.text == "Connect" {
             if multiScreenManager.services.count >= 1 {
                 
-                var text: String = String("connecting to ")
-                
-                var hud = MBProgressHUD(view: self.view)
+                let hud = MBProgressHUD(view: self.view)
                 let cgFloat: CGFloat = CGRectGetMinY(self.view.bounds);
                 let someFloat: Float = Float(cgFloat)
                 hud.yOffset = someFloat
@@ -115,7 +113,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
                         } else {
                             errorMsg = "Connection could not be established"
                         }
-                        var  alertView:UIAlertView = UIAlertView(title:"", message: errorMsg, delegate: self, cancelButtonTitle: "OK")
+                        let alertView:UIAlertView = UIAlertView(title:"", message: errorMsg, delegate: self, cancelButtonTitle: "OK")
                         alertView.alertViewStyle = .Default
                         alertView.show()
                     } else {

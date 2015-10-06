@@ -11,7 +11,6 @@
 		CD03D9E81B16A3D70084D765 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03D9E71B16A3D70084D765 /* SystemConfiguration.framework */; };
 		CD0429631B1FCF1D002CE680 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0429611B1FCF1D002CE680 /* String+Helpers.swift */; };
 		CD0429641B1FCF1D002CE680 /* UIImage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */; };
-		CD0429671B26262F002CE680 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CD0429661B26262F002CE680 /* README.md */; };
 		CD43E9821B1523A70076AC7E /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD43E9811B1523A70076AC7E /* DevicesViewController.swift */; };
 		CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4C39711B02B5D700621465 /* AppDelegate.swift */; };
 		CD4C39771B02B5D700621465 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD4C39751B02B5D700621465 /* Main.storyboard */; };
@@ -136,6 +135,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8112B0761BC4867300BB897C /* deps */ = {
+			isa = PBXGroup;
+			children = (
+				CDE75E5F1B18588B00C6B3F9 /* Reachability.h */,
+				CDE75E601B18588B00C6B3F9 /* Reachability.m */,
+				CDE75E591B184C3800C6B3F9 /* SSIdInfo.h */,
+				CDE75E5A1B184C3800C6B3F9 /* SSIdInfo.m */,
+				CDE75E5C1B184D5000C6B3F9 /* MBProgressHUD.h */,
+				CDE75E5D1B184D5000C6B3F9 /* MBProgressHUD.m */,
+				CD83122B1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift */,
+				CD76AEAB1B0DC299006455F1 /* Information.html */,
+				CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */,
+				CD0429611B1FCF1D002CE680 /* String+Helpers.swift */,
+			);
+			name = deps;
+			sourceTree = "<group>";
+		};
 		CD4C39631B02B5D700621465 = {
 			isa = PBXGroup;
 			children = (
@@ -159,13 +175,8 @@
 		CD4C396E1B02B5D700621465 /* SoundScape */ = {
 			isa = PBXGroup;
 			children = (
+				8112B0761BC4867300BB897C /* deps */,
 				CD0429661B26262F002CE680 /* README.md */,
-				CD0429611B1FCF1D002CE680 /* String+Helpers.swift */,
-				CD0429621B1FCF1D002CE680 /* UIImage+Helpers.swift */,
-				CDE75E5F1B18588B00C6B3F9 /* Reachability.h */,
-				CDE75E601B18588B00C6B3F9 /* Reachability.m */,
-				CDE75E5C1B184D5000C6B3F9 /* MBProgressHUD.h */,
-				CDE75E5D1B184D5000C6B3F9 /* MBProgressHUD.m */,
 				CD4C399C1B02B6FA00621465 /* MultiScreenManager.swift */,
 				CD4C39711B02B5D700621465 /* AppDelegate.swift */,
 				CD4C39751B02B5D700621465 /* Main.storyboard */,
@@ -179,13 +190,9 @@
 				CD4C39B31B02D94800621465 /* LibraryTableViewController.swift */,
 				CD4C39DC1B03CCD100621465 /* MediaItem.swift */,
 				CD76AEA51B0DC062006455F1 /* InformationViewController.swift */,
-				CD76AEAB1B0DC299006455F1 /* Information.html */,
 				CD43E9811B1523A70076AC7E /* DevicesViewController.swift */,
 				CD03D9DE1B154D650084D765 /* DeviceDisconnectViewController.swift */,
-				CDE75E591B184C3800C6B3F9 /* SSIdInfo.h */,
-				CDE75E5A1B184C3800C6B3F9 /* SSIdInfo.m */,
 				CDE75E581B184C3700C6B3F9 /* SoundScape-Bridging-Header.h */,
-				CD83122B1B1D1F0D00EAFD39 /* UIImageView+AFNetworking.swift */,
 			);
 			path = SoundScape;
 			sourceTree = "<group>";
@@ -359,7 +366,6 @@
 				CD4C399F1B02B6FA00621465 /* MultiScreenManager.swift in Sources */,
 				CD0429631B1FCF1D002CE680 /* String+Helpers.swift in Sources */,
 				CD4C39DD1B03CCD100621465 /* MediaItem.swift in Sources */,
-				CD0429671B26262F002CE680 /* README.md in Sources */,
 				CD0429641B1FCF1D002CE680 /* UIImage+Helpers.swift in Sources */,
 				CD4C39721B02B5D700621465 /* AppDelegate.swift in Sources */,
 				CD03D9DF1B154D650084D765 /* DeviceDisconnectViewController.swift in Sources */,

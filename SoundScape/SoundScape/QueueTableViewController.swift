@@ -86,8 +86,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        let homeVC = UIApplication.sharedApplication().keyWindow?.rootViewController as! HomeViewController
         
         // Add an observer to check for services status and manage the cast icon
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQueue:", name: multiScreenManager.refreshQueueObserverIdentifier, object: nil)
@@ -358,7 +356,7 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
         multiScreenManager.sendUserColorRequest()
         multiScreenManager.sendAppStateRequest()
         
-        var button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action: "playPause")
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action: "playPause")
         button.tintColor = UIColor.whiteColor()
         
         var toolbarItems: [AnyObject]? = mediaActionToolbar.items

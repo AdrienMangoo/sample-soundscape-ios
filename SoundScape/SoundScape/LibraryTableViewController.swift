@@ -62,7 +62,6 @@ class LibraryTableViewController: UITableViewController {
                         
                         if serializationError == nil {
                             for item in mediaData {
-                                let artist = item["artist"] as? NSString
                                 var albumArt = item["albumArt"] as? NSString
                                 if albumArt == nil {
                                     albumArt = ""
@@ -171,8 +170,6 @@ class LibraryTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var text: String = String("added to playlist")
-
         let hud = MBProgressHUD(view: self.view)
         let cgFloat: CGFloat = CGRectGetMinY(tableView.bounds);
         let someFloat: Float = Float(cgFloat)

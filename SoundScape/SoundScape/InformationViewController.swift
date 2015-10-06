@@ -35,7 +35,7 @@ class InformationViewController: UIViewController {
         let localfilePath = NSBundle.mainBundle().URLForResource("Information", withExtension: "html");
         let html = try? NSString(contentsOfURL: localfilePath!, encoding: NSUTF8StringEncoding)
     
-        var ssid: String? = String(SSIdInfo.currentWifiSSID())
+        let ssid: String? = String(SSIdInfo.currentWifiSSID())
         var ssidDisplay: String = String()
         
         if ssid != nil {
