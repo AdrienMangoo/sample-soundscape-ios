@@ -184,7 +184,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     ///
     /// - parameter completionHandler: The callback handler,  return true or false
     func closeApplication(completionHandler: ((Bool!) -> Void)!){
-        app.disconnect(leaveHostRunning: true, completionHandler: { (channel, error) -> Void in
+        app.disconnect(leaveHostRunning: false, completionHandler: { (channel, error) -> Void in
             if (error == nil){
                 completionHandler(true)
             } else {
