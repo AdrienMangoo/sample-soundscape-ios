@@ -140,7 +140,7 @@ public class ServiceSearch: ServiceSearchProviderDelegate {
 
     private let accessQueue = dispatch_queue_create("SynchronizedAccess", DISPATCH_QUEUE_SERIAL)
 
-    private var discoveryProvidersTypes: [ServiceSearchProviderBase.Type ] = [MDNSDiscoveryProvider.self, MSFDiscoveryProvider.self] //, BLEDiscoveryProvider.self
+    private var discoveryProvidersTypes: [ServiceSearchProviderBase.Type ] = [MDNSDiscoveryProvider.self, MSFDiscoveryProvider.self]
 
     private var started = false
 

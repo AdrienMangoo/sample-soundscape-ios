@@ -284,7 +284,7 @@
 				TargetAttributes = {
 					CD4C396B1B02B5D700621465 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = Q63V73M8R9;
+						DevelopmentTeam = E473V4LVN7;
 					};
 					CD4C39801B02B5D700621465 = {
 						CreatedOnToolsVersion = 6.3;
@@ -514,7 +514,7 @@
 				INFOPLIST_FILE = SoundScape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samsung.sta.multiscreen.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samsung.multiscreen.SoundScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoundScape/SoundScape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -531,7 +531,7 @@
 				INFOPLIST_FILE = SoundScape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samsung.sta.multiscreen.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samsung.multiscreen.SoundScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoundScape/SoundScape-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";

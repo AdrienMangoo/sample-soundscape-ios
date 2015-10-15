@@ -63,7 +63,6 @@
 		B28969B019CB704200D73F97 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		B28969B119CB704200D73F97 /* ServiceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSearch.swift; sourceTree = "<group>"; };
 		B2A343301A44DDCB00824251 /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebSocket.swift; path = ../../../deps/starscream/WebSocket.swift; sourceTree = "<group>"; };
-		B2FB34D61AA7C953000C90F4 /* BLEDiscoveryProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEDiscoveryProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +86,6 @@
 		B255684F1A01DD5600C2566E /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				B2FB34D61AA7C953000C90F4 /* BLEDiscoveryProvider.swift */,
 				B2509CDE1A786C4700862072 /* MSFDiscoveryProvider.swift */,
 				B2339A2E19E49DF0007261A1 /* MDNSDiscoveryProvider.swift */,
 				B28969AF19CB704200D73F97 /* Requester.swift */,
@@ -244,6 +242,7 @@
 				TargetAttributes = {
 					B289698D19CB6FF700D73F97 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ALLYES94EX;
 					};
 					B289699819CB6FF700D73F97 = {
 						CreatedOnToolsVersion = 6.0;
@@ -378,6 +377,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -390,6 +391,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samsung.sta.multiscreen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Coverage;
@@ -502,6 +504,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -512,6 +516,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samsung.sta.multiscreen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -520,6 +525,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -530,6 +537,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samsung.sta.multiscreen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
