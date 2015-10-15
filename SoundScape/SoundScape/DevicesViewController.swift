@@ -208,7 +208,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /// UIGestureRecognizerDelegate used to disable the tap event if the tapped View is not the main View
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
-        print(touch.view!.tag)
         if (touch.view!.tag == 1){
             return true
         }

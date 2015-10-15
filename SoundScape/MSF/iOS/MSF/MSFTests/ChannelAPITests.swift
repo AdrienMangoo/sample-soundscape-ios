@@ -101,7 +101,6 @@ class ChannelAPITests: XCTestCase {
                     assert(!self.hostService.name.isEmpty, "The name string must be set")
                     assert(!self.hostService.uri.isEmpty, "The uri string must be set")
                     assert(!self.hostService.version.isEmpty, "The version string must be set")
-                    print(service!.name)
                 }
                 messageReceivedExpectation.fulfill()
             })
@@ -144,7 +143,6 @@ class ChannelAPITests: XCTestCase {
             assert(me != nil, "expected client must not be nil")
             assert(me?.id.isEmpty == false, "the Id must not be empty")
             assert(me?.isHost == true, "this connection end point if for the host")
-            print(notification.userInfo)
 
         })
 
@@ -188,7 +186,6 @@ class ChannelAPITests: XCTestCase {
             });
 
             readyObserver = self.client1.on(ChannelEvent.Ready.rawValue, performClosure: { (notification) -> Void in
-                print(notification)
                 if (gotClientConnectEvent) {
                     clientConnectExpectation.fulfill()
                 } else {
@@ -266,7 +263,6 @@ class ChannelAPITests: XCTestCase {
         });
 
         let readyObserver: AnyObject? = client2.on(ChannelEvent.Ready.rawValue, performClosure: { (notification) -> Void in
-            print(notification)
             if (gotClientConnectHostEvent && gotClientConnectClient1Event) {
                 clientConnectExpectation.fulfill()
             } else {
@@ -311,7 +307,6 @@ class ChannelAPITests: XCTestCase {
         })
 
         client2.disconnect { (client, error) -> Void in
-            print("client2.disconnect")
             client2DisconnectExpectation.fulfill()
         }
 

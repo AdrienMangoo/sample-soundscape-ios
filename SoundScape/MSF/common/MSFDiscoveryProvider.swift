@@ -145,7 +145,6 @@ class MSFDiscoveryProvider: ServiceSearchProviderBase {
             for key in keys {
                 if self.services[key]?.compare(now) == NSComparisonResult.OrderedAscending {
                     self.services.removeObjectForKey(key)
-                    print("MSFD -> self.services \(key) \(self.services)")
                     self.delegate?.onServiceLost(key, discoveryType: self.type)
                 }
             }
@@ -240,7 +239,6 @@ class MSFDiscoveryProvider: ServiceSearchProviderBase {
                 if let uri = msg.objectForKey("data")?.objectForKey("v2")?.objectForKey("uri") as? String {
                     let ttl = msg["ttl"] as! Double
                     if services[sid] == nil {
-                        print("MSFD -> serviceFound \(sid) \(uri)")
                         services[sid] = NSDate(timeIntervalSinceNow: NSTimeInterval(ttl/1000.0))
                         delegate!.onServiceFound(sid, serviceURI: uri, discoveryType: ServiceSearchDiscoveryType.LAN)
                     } else {

@@ -26,46 +26,6 @@ import UIKit
 import MSF
 import XCPlayground
 
-
-//class HelloWorld: ServiceSearchDelegate {
-//
-//    let channelURI = "com.samsung.multiscreen.helloworld"
-//    let appURL = "http://prod-multiscreen-examples.s3-website-us-west-1.amazonaws.com/examples/helloworld/tv/"
-//    var app: Application!
-//    var search = Service.search()
-//    var service: Service? = nil
-//
-//    init () {
-//        search.delegate = self
-//        search.start()
-//    }
-//
-//    func selecService(service: Service) {
-//        app = service.createApplication(NSURL(string: appURL)!, channelURI: channelURI )
-//        app.connect(["name":UIDevice.currentDevice().name]) { [unowned self ] (channel: Channel, error: NSError?) in
-//            if error != nil {
-//                print(error?.localizedDescription)
-//            } else {
-//                print("TV App is Ready")
-//                self.app.publish(event: "say", message: "Hello TV...")
-//            }
-//        }
-//    }
-//
-//    //MARK: --  ServiceSearchDelegate --
-//
-//    func onServiceFound(service: MSF.Service) {
-//        print(service.name)
-//        //Select the first found service
-//        if self.service == nil && service.name == "aljopBox" {
-//            self.service = service
-//            search.stop()
-//            self.selecService(self.service!)
-//        }
-//    }
-//
-//}
-
 class HelloWorld: ServiceSearchDelegate {
 
     let channelURI = "com.samsung.multiscreen.chatdemo"
@@ -81,10 +41,7 @@ class HelloWorld: ServiceSearchDelegate {
 
     func selecService(service: Service) {
         app = service.createApplication(appId, channelURI: channelURI, args: nil )
-//        app.install { (success, error) -> Void in
-//            print(error)
-//        } 
-        app .connect(["name":UIDevice.currentDevice().name]) { [unowned self ] (channel: Channel, error: NSError?) in
+        app.connect(["name":UIDevice.currentDevice().name]) { (client, error) -> Void in
             if error != nil {
                 print(error?.localizedDescription)
             } else {
@@ -105,6 +62,7 @@ class HelloWorld: ServiceSearchDelegate {
             self.selecService(self.service!)
         } else {
             print("ignoring \(service.name)")
+            
         }
     }
     

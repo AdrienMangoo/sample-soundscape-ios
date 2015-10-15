@@ -246,13 +246,11 @@ public class ServiceSearch: ServiceSearchProviderDelegate {
         dispatch_async(self.accessQueue) { [unowned self] in
             var endpoint = serviceURI.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: " "))
             endpoint = endpoint.lowercaseString
-            print("search -> onServiceResolved starting \(endpoint)")
             if !self.resolvedServices.containsObject(endpoint) && !self.unresolvedServices.containsObject(endpoint) {
                 self.unresolvedServices.addObject(endpoint)
                 Service.getByURI(endpoint, timeout: NSTimeInterval(5)) { (service, error) -> Void in
                     dispatch_async(self.accessQueue, { [unowned self] () -> Void in
                         if service != nil {
-                            print("search -> onServiceResolved \(endpoint) \(service!.uri)")
                             self.unresolvedServices.removeObject(endpoint)
                             self.resolvedServices.addObject(endpoint)
                             service!.discoveryType = discoveryType
@@ -278,12 +276,10 @@ public class ServiceSearch: ServiceSearchProviderDelegate {
     private func onServiceFound(service: Service, discoveryType: ServiceSearchDiscoveryType) {
         dispatch_async(self.accessQueue) { [unowned self] in
             if self.servicesCache.indexOf(service) != nil { // ignore the service
-                print("search -> onServiceFound in cache \(service.uri)")
                 return
             }
             self.servicesCache.append(service)
             dispatch_async(dispatch_get_main_queue()) { [unowned self]  () -> Void in
-                print("search -> onServiceFound  \(service.uri)")
                 self.delegate?.onServiceFound?(service)
                 NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: MSDidFindService, object: self, userInfo: ["finder":self,"service":service]))
             }
@@ -296,7 +292,6 @@ public class ServiceSearch: ServiceSearchProviderDelegate {
             if found.count > 0 {
                 let service = found[0]
                 if discoveryType == ServiceSearchDiscoveryType.CLOUD {
-                    print("search -> onServiceLost CLOUD \(service.uri)")
                     self.resolvedServices.removeObject(service.uri)
                     self.removeObject(&self.servicesCache, object: service)
                     dispatch_async(dispatch_get_main_queue()) { [unowned self]  () -> Void in
@@ -306,7 +301,6 @@ public class ServiceSearch: ServiceSearchProviderDelegate {
                 } else {
                     service.getDeviceInfo(5, completionHandler: { (deviceInfo, error) -> Void in
                         if error != nil || deviceInfo == nil {
-                            print("search -> onServiceLost LAN \(service.uri)")
                             dispatch_async(self.accessQueue) { [unowned self] in
                                 self.resolvedServices.removeObject(service.uri)
                                 self.removeObject(&self.servicesCache, object: service)

@@ -320,9 +320,6 @@ class QueueTableViewController: UIViewController,UITableViewDelegate,UITableView
             
             self.trackPositionLabel.text = String(format: "%02d:%02d:%02d", h,m,s)
         }
-        else {
-            print("sliding, so no setvalue")
-        }
         
         var button: UIBarButtonItem = UIBarButtonItem()
         if self.currentTrackState == "playing" {

@@ -136,7 +136,7 @@ public class Application: Channel {
             params["args"] = args
         }
         let data = JSON.jsonDataForObject(params)
-        print(restEndpoint)
+        
         Requester.doPost(restEndpoint, payload: data, headers: ["Content-Type":"application/json;charset=UTF-8"], timeout: 10, completionHandler: { (responseHeaders, data, error) -> Void in
             //TODO: override the error message with the one provided by the server if it was sent
             //            if data != nil {
