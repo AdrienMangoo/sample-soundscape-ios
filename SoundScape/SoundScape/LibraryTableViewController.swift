@@ -46,7 +46,7 @@ class LibraryTableViewController: UITableViewController {
         //[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        let url = NSURL(string: "http://multiscreen.samsung.com/examples/soundscape/music/library.json")
+        let url = NSURL(string: "http://dgpcnfdr6d6y5.cloudfront.net/examples/soundscape/music/library.json")
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)) { [unowned self]  () -> Void in
             

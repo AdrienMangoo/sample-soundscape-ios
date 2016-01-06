@@ -34,7 +34,7 @@ class MultiScreenManager: NSObject, ServiceSearchDelegate, ChannelDelegate {
     var queueMedias = NSMutableOrderedSet()
     
     /// Application url
-    var appURL: String =  "http://multiscreen.samsung.com/examples/soundscape/tv/index.html"
+    var appURL: String =  "http://dgpcnfdr6d6y5.cloudfront.net/examples/soundscape/tv/index.html"
     /// Application Channel
     //var channelId: String = "com.samsung.multiscreen.photos"
     var channelId: String = "com.samsung.soundscape"
